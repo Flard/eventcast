@@ -1,0 +1,10 @@
+{
+    "demo": "EventCast Demo Project",
+
+    "playerPassword": "",
+    "adminPassword": "",
+
+    "plugins": ["demo"],
+
+    "defaultScreen": "demo"
+}

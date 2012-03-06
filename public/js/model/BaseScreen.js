@@ -1,0 +1,3 @@
+EventCast.BaseScreen = new Class({
+
+});
