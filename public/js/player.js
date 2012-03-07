@@ -3,7 +3,7 @@ if (!EventCast) var EventCast = {};
 EventCast.Player = new Class({
     initialize: function(config) {
         var defaultOptions = {
-            server_address: 'http://localhost'
+            server_address: ''
         };
 
         this.options = Object.merge(defaultOptions, config || {});
@@ -15,7 +15,7 @@ EventCast.Player = new Class({
             console.log('no project set');
             return;
         }
-        console.log('loading project info...');
+        this._initProject();
 
         return;
 
@@ -25,6 +25,26 @@ EventCast.Player = new Class({
         socket.on('news', function (data) {
             console.log(data);
             socket.emit('my other event', { my: 'data' });
+        });
+    },
+
+    _initProject: function() {
+        var self = this;
+
+        console.log('loading project info...');
+        var projectRequest = new Request.JSON({
+            url: this.options.server_address+'/projects/'+this.options.project,
+            onSuccess: function(projectData) {
+
+                self._loadProjectPlugins(projectData);
+
+            }
+        }).get();
+    },
+
+    _loadProjectPlugins: function(projectData) {
+        Array.each(projectData.plugins, function(pluginName) {
+            console.log('load plugin "'+pluginName+'"');
         });
     }
 });

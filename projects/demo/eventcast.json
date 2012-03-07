@@ -4,7 +4,7 @@
     "playerPassword": "",
     "adminPassword": "",
 
-    "plugins": ["demo"],
+    "plugins": ["demo", "clock", "twitterwall", "twitterbox"],
 
     "defaultScreen": "demo"
 }

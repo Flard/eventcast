@@ -36,6 +36,12 @@ app.get('/listProjects', function(req, res) {
     });
 });
 
+app.get('/projects/:projectName', function(req, res) {
+    //TODO: Check projectName
+    //TODO: Only return "relevant" info
+    res.sendfile(__dirname + '/projects/'+req.params.projectName+'/eventCast.json');
+});
+
 // Extension to return JSON data
 var http = require('http');
 http.ServerResponse.prototype.returnJson = function(data) {
