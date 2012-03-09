@@ -1,10 +1,18 @@
 {
-    "demo": "EventCast Demo Project",
+    "description": "EventCast Demo Project",
+    "is_public": true,
+
+    "screen_size": [1024, 768],
 
     "playerPassword": "",
     "adminPassword": "",
 
-    "plugins": ["demo", "clock", "twitterwall", "twitterbox"],
+    "plugins": {
+        "empty": true,
+        "clock": true,
+        "twitterwall": true,
+        "twitterbox": true
+    },
 
-    "defaultScreen": "demo"
+    "defaultScreen": "empty"
 }
