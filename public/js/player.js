@@ -19,7 +19,8 @@ EventCast.Player = new Class({
      * Start the player by connecting to server, load data and start listening to events
      */
     connect: function() {
-
+        var self = this;
+        
         // Test if options are set
         if (!this.options.project) {
             // TODO: show select dialog
@@ -38,28 +39,20 @@ EventCast.Player = new Class({
 
         socket.on('connect', function() {
             socket.emit('setProject', project, function(data) {
-                console.log(data);
+                if (!self.isLoaded) {
+                    self._loadProject(data);
+                }
             });
         });
 
     },
+    
+    isLoaded: false,
 
-    /**
-     * Initialize the project
-     */
-    _initProject: function() {
-        var self = this;
-
-        EventCast.log('Player', 'Loading project info from server...');
-        var projectRequest = new Request.JSON({
-            url: this.options.server_address+'/projects/'+this.options.project,
-            onSuccess: function(projectData) {
-
-                self._loadProjectPlugins(projectData);
-                self._render();
-
-            }
-        }).get();
+    _loadProject: function(projectData) {
+        this._loadProjectPlugins(projectData);
+        this._render();
+        this.isLoaded = true;
     },
 
     /**
