@@ -8,10 +8,7 @@
     "adminPassword": "",
 
     "plugins": {
-        "empty": true,
-        "clock": true,
-        "twitterwall": true,
-        "twitterbox": true
+        "general": true
     },
 
     "defaultScreen": "empty"

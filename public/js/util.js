@@ -1,4 +1,5 @@
 if (!EventCast) var EventCast = {};
+if (!EventCast.Screens) EventCast.Screens = {};
 
 EventCast.log = function() {
     if (arguments.length == 1) {
