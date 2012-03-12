@@ -10,6 +10,10 @@
     "plugins": {
         "general": true
     },
+    
+    "stylesheets": [
+        "/projects/demo/demo.css"
+    ],
 
     "defaultScreen": "empty"
 }

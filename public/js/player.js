@@ -28,31 +28,50 @@ EventCast.Player = new Class({
             return;
         }
 
-        // Initialize the project
-        //this._initProject();
-        //return;
+        // Connect to server
+        console.log('connecting to server...');
+        var socket = this.socket = io.connect(this.options.server_address);
 
-        var address = this.options.server_address;
-        var project = this.options.project;
-        console.log('connecting to server @ "'+address+'"');
-        var socket = this.socket = io.connect(address);
-
-        socket.on('connect', function() {
-            socket.emit('setProject', project, function(data) {
+        socket.on('connect', function() { // On connect
+            
+            // Switch to project channel
+            socket.emit('setProject', self.options.project, function(data) {
+                
+                // Initial local project data
                 if (!self.isLoaded) {
                     self._loadProject(data);
                 }
-            });
-        });
+                
+                self.showScreen(data.currentScreen);
+                
+            }); // socket.emit('setProject')
+            
+        }); // socket.on('connect')
 
     },
     
     isLoaded: false,
 
     _loadProject: function(projectData) {
+        this._loadProjectStylesheets(projectData);
         this._loadProjectPlugins(projectData);
         this._render();
         this.isLoaded = true;
+    },
+    
+    _loadProjectStylesheets: function(projectData) {
+        EventCast.debug('Player', 'loading stylesheets...');
+        
+        var headEl = $$('head');
+        console.log(headEl);
+        
+        Array.each(projectData.stylesheets || [], function(href) {
+            
+            var linkEl = new Element('link', { 'rel': 'stylesheet', 'href': href, 'type': 'text/stylesheet' });
+            linkEl.inject(headEl);
+            
+        });
+        
     },
 
     /**
@@ -90,6 +109,13 @@ EventCast.Player = new Class({
                 plugin.render(this.canvas);
             }
         });
+    },
+    
+    _currentScreen: undefined,
+    showScreen: function(screenName) {
+        if (this._currentScreen == screenName) return;
+        
+        EventCast.log('Player', 'switching to screen "'+screenName+'"');
     }
 });
 

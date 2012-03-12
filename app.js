@@ -36,11 +36,11 @@ app.get('/listProjects', function(req, res) {
     });
 });
 
-app.get('/projects/:projectName', function(req, res) {
-    //TODO: Check projectName
-    //TODO: Only return "relevant" info
-    res.sendfile();
-});
+//app.get('/projects/:projectName', function(req, res) {
+//    //TODO: Check projectName
+//    //TODO: Only return "relevant" info
+//    res.sendfile();
+//});
 
 // Extension to return JSON data
 var http = require('http');
@@ -50,9 +50,11 @@ http.ServerResponse.prototype.returnJson = function(data) {
     this.end(dataString);
 };
 
-io.sockets.on('connection', function(socket) {
-    console.log('connect...');
-    socket.on('setProject', function(project, fn) {
+var currentScreens = {};
+io.sockets.on('connection', function(socket) {      // On new socket connection
+
+    socket.on('setProject', function(project, fn) { // listen for the "setProject" event
+    
         var fs = require('fs');
         var path = __dirname + '/projects/'+project+'/eventcast.json';
 
@@ -61,6 +63,9 @@ io.sockets.on('connection', function(socket) {
                 fn(false);
             } else {
                 data = JSON.parse(data);
+                
+                data.currentScreen = currentScreens[project] || data.defaultScreen;
+                
                 fn(data);
             }
         });
@@ -69,6 +74,6 @@ io.sockets.on('connection', function(socket) {
 
 
 // Start listening
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Started server on port '+port);
