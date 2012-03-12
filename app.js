@@ -39,7 +39,7 @@ app.get('/listProjects', function(req, res) {
 app.get('/projects/:projectName', function(req, res) {
     //TODO: Check projectName
     //TODO: Only return "relevant" info
-    res.sendfile(__dirname + '/projects/'+req.params.projectName+'/eventCast.json');
+    res.sendfile();
 });
 
 // Extension to return JSON data
@@ -49,6 +49,24 @@ http.ServerResponse.prototype.returnJson = function(data) {
     var dataString = JSON.stringify(data);
     this.end(dataString);
 };
+
+io.sockets.on('connection', function(socket) {
+    console.log('connect...');
+    socket.on('setProject', function(project, fn) {
+        var fs = require('fs');
+        var path = __dirname + '/projects/'+project+'/eventcast.json';
+
+        fs.readFile(path, 'ascii', function(err, data) {
+            if (err) {
+                fn(false);
+            } else {
+                data = JSON.parse(data);
+                fn(data);
+            }
+        });
+    });
+});
+
 
 // Start listening
 var port = process.env.PORT || 3000

@@ -28,17 +28,20 @@ EventCast.Player = new Class({
         }
 
         // Initialize the project
-        this._initProject();
+        //this._initProject();
+        //return;
 
-        return;
+        var address = this.options.server_address;
+        var project = this.options.project;
+        console.log('connecting to server @ "'+address+'"');
+        var socket = this.socket = io.connect(address);
 
-        console.log('connecting to server...');
-        var socket = this.socket = io.connect(this.options.server_address);
-
-        socket.on('news', function (data) {
-            console.log(data);
-            socket.emit('my other event', { my: 'data' });
+        socket.on('connect', function() {
+            socket.emit('setProject', project, function(data) {
+                console.log(data);
+            });
         });
+
     },
 
     /**
