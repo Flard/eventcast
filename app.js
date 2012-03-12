@@ -51,4 +51,6 @@ http.ServerResponse.prototype.returnJson = function(data) {
 };
 
 // Start listening
-app.listen(3000);
+var port = process.env.PORT || 3000
+app.listen(port);
+console.log('Started server on port '+port);
