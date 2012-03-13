@@ -1,7 +1,8 @@
 if (!EventCast) var EventCast = {};
 
 EventCast.Player = new Class({
-    plugins: [],
+    _plugins: [],
+    _currentScreen: undefined,
 
     /**
      * Initialize a new Player instance
@@ -32,6 +33,7 @@ EventCast.Player = new Class({
         console.log('connecting to server...');
         var socket = this.socket = io.connect(this.options.server_address);
 
+        // set connection listener
         socket.on('connect', function() { // On connect
             
             // Switch to project channel
@@ -52,13 +54,21 @@ EventCast.Player = new Class({
     
     isLoaded: false,
 
+    /**
+     * Initialize with player with server project data
+     * @param projectData
+     */
     _loadProject: function(projectData) {
         this._loadProjectStylesheets(projectData);
         this._loadProjectPlugins(projectData);
         this._render();
         this.isLoaded = true;
     },
-    
+
+    /**
+     * Load stylesheets from server project data
+     * @param projectData
+     */
     _loadProjectStylesheets: function(projectData) {
         EventCast.debug('Player', 'loading stylesheets...');
         
@@ -82,12 +92,12 @@ EventCast.Player = new Class({
 
         EventCast.debug('Player', 'Loading plugins...');
 
-        self.plugins = [];
+        self._plugins = [];
         Object.each(projectData.plugins, function(options, pluginName) {
 
             var plugin = EventCast.pluginManager.load(pluginName, options);
             if (plugin !== false) {
-                self.plugins.push(plugin);
+                self._plugins.push(plugin);
             }
 
         });
@@ -103,16 +113,20 @@ EventCast.Player = new Class({
         // Empty the canvas
         this.canvas.empty();
 
-        Array.each(this.plugins, function(plugin) {
+        Array.each(this._plugins, function(plugin) {
             if (typeof plugin.render === 'function') {
                 plugin.render(this.canvas);
             }
         });
     },
     
-    _currentScreen: undefined,
+    /**
+     * Switch to screen
+     * @param screenName
+     */
     showScreen: function(screenName) {
         if (this._currentScreen == screenName) return;
+        this._currentScreen = screenName;
         
         EventCast.log('Player', 'switching to screen "'+screenName+'"');
     }
