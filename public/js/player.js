@@ -63,12 +63,11 @@ EventCast.Player = new Class({
         EventCast.debug('Player', 'loading stylesheets...');
         
         var headEl = $$('head');
-        console.log(headEl);
         
         Array.each(projectData.stylesheets || [], function(href) {
             
             var linkEl = new Element('link', { 'rel': 'stylesheet', 'href': href, 'type': 'text/stylesheet' });
-            linkEl.inject(headEl);
+            headEl.grab(linkEl);
             
         });
         
@@ -123,5 +122,8 @@ var config = {
     project: 'demo'
 };
 
-var player = new EventCast.Player(config);
-player.connect();
+
+window.addEvent('domready', function(){
+    var player = new EventCast.Player(config);
+      player.connect();
+});
