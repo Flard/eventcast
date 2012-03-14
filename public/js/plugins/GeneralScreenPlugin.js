@@ -7,7 +7,8 @@ EventCast.GeneralScreenPlugin = new Class({
 
     loadScreens: function() {
         this.screens = {
-            empty: new EventCast.Screens.EmptyScreen(this)
+            empty: new EventCast.Screens.EmptyScreen(this),
+            digitalclock: new EventCast.Screens.DigitalClockScreen(this)
         };
     }
 });

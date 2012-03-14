@@ -6,7 +6,6 @@ EventCast.BaseScreenPlugin = new Class({
     },
     
     load: function(options) {
-        console.log(this);
         this.setOptions(options);
         
         // Register Screens
