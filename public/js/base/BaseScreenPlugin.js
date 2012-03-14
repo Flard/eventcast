@@ -4,6 +4,17 @@ EventCast.BaseScreenPlugin = new Class({
     initialize: function(name) {
         this.parent(name);
     },
+    
+    load: function(options) {
+        console.log(this);
+        this.setOptions(options);
+        
+        // Register Screens
+        this.loadScreens();
+        Object.each(this.screens, function(screen) {
+            EventCast.screenManager.register(screen);
+        });
+    },
 
     render: function(canvas) {
         if (this.screens === undefined) {

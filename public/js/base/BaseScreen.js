@@ -1,13 +1,14 @@
 EventCast.BaseScreen = new Class({
+    el: undefined,
+    
     initialize: function(name) {
         this.name = name;
     },
 
     render: function(canvas) {
-        if (!this.isRendered) {
-            this._render(canvas);
+        if (this.el === undefined) {
+            this. el = this._render(canvas);
         }
-        this.isRendered = true;
     },
 
     _render: function(canvas) {

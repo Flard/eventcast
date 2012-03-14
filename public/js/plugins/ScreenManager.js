@@ -8,8 +8,12 @@ EventCast.ScreenManager = new Class({
     register: function(screen) {
 
         EventCast.log('ScreenManager', 'registered screen "'+screen.name+'"');
-        this.plugins[screen.name] = screen;
+        this.screens[screen.name] = screen;
 
+    },
+    
+    getByName: function(screenName) {
+        return this.screens[screenName];
     }
 
 });

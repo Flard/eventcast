@@ -1,3 +1,26 @@
 body {
     background-color: black;
-}
+    }
+
+#canvas {
+    margin: 0 auto;
+    width: 800px;
+    height: 640px;
+    
+    background-color: white;
+    
+    position: relative;
+    overflow: hidden;
+    }
+    
+.screen {
+    display: none;
+    width: 800px;
+    height: 640px;
+    
+    position: absolute;
+    }
+    
+.emptyScreen {
+    background-color: lime;
+    }

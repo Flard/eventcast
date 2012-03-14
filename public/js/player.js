@@ -3,6 +3,7 @@ if (!EventCast) var EventCast = {};
 EventCast.Player = new Class({
     _plugins: [],
     _currentScreen: undefined,
+    _transition: undefined,
 
     /**
      * Initialize a new Player instance
@@ -61,6 +62,7 @@ EventCast.Player = new Class({
     _loadProject: function(projectData) {
         this._loadProjectStylesheets(projectData);
         this._loadProjectPlugins(projectData);
+        this._transition = new EventCast.SlideTransition(); // TODO: Load transition from config
         this._render();
         this.isLoaded = true;
     },
@@ -124,11 +126,28 @@ EventCast.Player = new Class({
      * Switch to screen
      * @param screenName
      */
-    showScreen: function(screenName) {
-        if (this._currentScreen == screenName) return;
-        this._currentScreen = screenName;
+    showScreen: function(screenName, options) {
+        // If we're already showing this screen: ignore
+        if (this._currentScreen !== undefined && this._currentScreen.name == screenName) return;
         
-        EventCast.log('Player', 'switching to screen "'+screenName+'"');
+        // Get the screen object
+        var screen = EventCast.screenManager.getByName(screenName);
+        if (!screen) { EventCast.warn('Player', 'Unknown screen "'+screenName+'"'); return }
+        
+        // Keep reference to previous screen
+        var previousScreen = this._currentScreen;
+        this._currentScreen = screen;
+
+        EventCast.log('Player', 'Switching to screen "'+screenName+'"');
+        
+        // Call preShow (which allows loading of data)
+        screen.preShow(function() {
+            
+            if (previousScreen) previousScreen.postShow();
+            
+            this._transition.go(screen.el, previousScreen ? previousScreen.el : false);
+            
+        }, options, this);
     }
 });
 

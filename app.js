@@ -18,7 +18,8 @@ app.get('/admin', function(req, res){
 });
 
 app.get('/projects/:projectName/:fileName.css', function(req, res) {
-    var path = __dirname+'/projects/demo/demo.css';
+    
+    var path = __dirname+'/projects/'+req.params.projectName+'/'+req.params.fileName+'.css';
     fs.stat(path, function(err, stat) {
        if (err) {
            res.send(err);

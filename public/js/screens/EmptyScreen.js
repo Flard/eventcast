@@ -8,5 +8,6 @@ EventCast.Screens.EmptyScreen = new Class({
     _render: function(canvas) {
         var screen = new Element('div', { class: 'screen emptyscreen'});
         screen.inject(canvas);
+        return screen;
     }
 });
