@@ -1,8 +1,10 @@
 EventCast.BaseScreenPlugin = new Class({
     Extends: EventCast.BasePlugin,
+    screens: undefined,
 
-    initialize: function(name) {
+    initialize: function(name, screens) {
         this.parent(name);
+        this.screens = screens;
     },
     
     load: function(options) {
@@ -26,8 +28,30 @@ EventCast.BaseScreenPlugin = new Class({
     },
 
     loadScreens: function() {
-        EventCast.warn("BaseScreenPlugin", '"loadScreens()" method not implemented for plugin "'+this.name+'"');
-        this.screens = {};
+        var self = this;
+        
+        if (typeof this.screens === 'undefined') {
+            EventCast.warn("BaseScreenPlugin", '"loadScreens()" method not implemented for plugin "'+this.name+'"');
+            this.screens = {};
+        } else if (typeof this.screens === 'Array') {
+            
+            var requires = [];
+            Array.each(this.screens, function(screenName) {
+                requires.push("screens/"+screenName);
+            });
+            
+            var initializedScreens = {};
+            require(requires, function() {
+                Array.each(self.screens, function(screenName){
+                    
+                    initializedScreens[screenName] = EventCast.screenManager.getByName(screenName);
+                    
+                });
+            });
+            this.screens = {};
+            
+            
+        }
     }
 
 });

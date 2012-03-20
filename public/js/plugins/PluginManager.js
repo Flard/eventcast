@@ -5,6 +5,16 @@ EventCast.PluginManager = new Class({
 
     },
 
+    load: function(pluginName, options) {
+        
+        EventCast.log('PluginManager', 'Loading plugin "'+pluginName+'"');
+        var self = this;
+        require(["plugins/"+pluginName], function() {
+            self.init(pluginName, options);
+        });
+        
+    },
+
     register: function(plugin) {
 
         EventCast.log('PluginManager', 'registered plugin "'+plugin.name+'"');
@@ -12,11 +22,11 @@ EventCast.PluginManager = new Class({
 
     },
 
-    load: function(pluginName, options) {
+    init: function(pluginName, options) {
 
         if (typeof this.plugins[pluginName] !== 'undefined') {
 
-            EventCast.log('PluginManager', 'Loading plugin "'+pluginName+'"');
+            EventCast.log('PluginManager', 'Initializing plugin "'+pluginName+'"');
             var plugin = this.plugins[pluginName];
             plugin.load(options);
             return plugin;
