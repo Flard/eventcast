@@ -1,15 +1,19 @@
 define([
     'plugin/pluginmanager',
-    'base/screenplugin',
+    'plugin/screenmanager',
+    'plugin/twitter/twitterwall',
+    'base/plugin',
     'core'
     ],
-    function(pluginManager) {
+    function(pluginManager, screenManager, twitterWall) {
 
         EventCast.TwitterPlugin = new Class({
-            Extends: EventCast.BaseScreenPlugin,
+            Extends: EventCast.BasePlugin,
 
             initialize: function() {
-                this.parent('twitter', []);
+                this.parent('twitter');
+
+                screenManager.register(twitterWall);
             }
         });
 

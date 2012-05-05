@@ -13,7 +13,5 @@ define(['plugin/screenmanager', 'base/screen'], function(screenManager) {
         }
     });
 
-    var instance = new EventCast.Screens.DigitalClockScreen();
-    screenManager.register(instance);
-    return instance;
+    return new EventCast.Screens.DigitalClockScreen();
 });

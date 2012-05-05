@@ -1,17 +1,17 @@
 define(['plugin/screenmanager', 'base/screen'], function(screenManager) {
-    EventCast.Screens.EmptyScreen = new Class({
+    EventCast.Screens.TwitterWallScreen = new Class({
         Extends: EventCast.BaseScreen,
 
         initialize: function() {
-            this.parent('empty');
+            this.parent('twitterwall');
         },
 
         _render: function(canvas) {
-            var screen = new Element('div', { class: 'screen emptyscreen'});
+            var screen = new Element('div', { class: 'screen twitterwall'});
             screen.inject(canvas);
             return screen;
         }
     });
 
-    return new EventCast.Screens.EmptyScreen();
+    return new EventCast.Screens.TwitterWallScreen();
 });

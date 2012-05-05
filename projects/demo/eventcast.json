@@ -8,7 +8,10 @@
     "adminPassword": "",
 
     "plugins": {
-        "general": true
+        "general": true,
+        "twitter": {
+            "query": "#3fm"
+        }
     },
     
     "stylesheets": [
