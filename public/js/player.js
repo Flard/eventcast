@@ -99,14 +99,18 @@ require([
             EventCast.debug('Player', 'Loading plugins...');
     
             self._plugins = [];
-            Object.each(projectData.plugins, function(options, pluginName) {
-    
-                var plugin = EventCast.pluginManager.load(pluginName, options);
+            var registerPluginFn = function(plugin) {
                 if (plugin !== false) {
                     self._plugins.push(plugin);
                 }
-    
+            }
+
+            Object.each(projectData.plugins, function(options, pluginName) {
+
+                plugin = EventCast.pluginManager.load(pluginName, options, registerPluginFn);
+
             });
+
         },
     
         /**
@@ -118,7 +122,7 @@ require([
     
             // Empty the canvas
             this.canvas.empty();
-    
+
             Array.each(this._plugins, function(plugin) {
                 if (typeof plugin.render === 'function') {
                     plugin.render(this.canvas);
@@ -144,7 +148,7 @@ require([
     
             EventCast.log('Player', 'Switching to screen "'+screenName+'"');
             
-            // Call preShow (which allows loading of data)
+            // Call preShow (which allows loading of data), and add a callback which the loader can call when done...
             screen.preShow(function() {
                 
                 if (previousScreen) previousScreen.postShow();

@@ -5,12 +5,13 @@ EventCast.PluginManager = new Class({
 
     },
 
-    load: function(pluginName, options) {
+    load: function(pluginName, options, callback) {
         
         EventCast.log('PluginManager', 'Loading plugin "'+pluginName+'"');
         var self = this;
         require(["plugins/"+pluginName], function() {
-            self.init(pluginName, options);
+            var plugin = self.init(pluginName, options);
+            callback(plugin);
         });
         
     },

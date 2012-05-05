@@ -2,6 +2,7 @@ EventCast.SlideTransition = new Class({
     Extends: EventCast.BaseTransition,
 
     go: function(newScreenEl, previousScreenEl) {
+        console.log(newScreenEl, previousScreenEl);
         if (previousScreenEl) {
             
             var fxOut = new Fx.Tween(previousScreenEl, {

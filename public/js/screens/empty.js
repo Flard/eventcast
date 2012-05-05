@@ -11,3 +11,5 @@ EventCast.Screens.EmptyScreen = new Class({
         return screen;
     }
 });
+
+EventCast.screenManager.register(new EventCast.Screens.EmptyScreen());
