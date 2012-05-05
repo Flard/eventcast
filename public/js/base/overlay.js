@@ -6,34 +6,25 @@ define(['core'], function() {
             this.name = name;
         },
 
-        render: function(canvas) {
+        render: function(canvas, isVisible) {
             if (this.el === undefined) {
-                this. el = this._render(canvas);
+                this.el = this._render(canvas);
+                if (!isVisible) {
+                    this.hide();
+                }
             }
+        },
+
+        show: function() {
+            this.el.removeClass('hidden');
+        },
+
+        hide: function() {
+            this.el.addClass('hidden');
         },
 
         _render: function(canvas) {
             EventCast.debug('BaseOverlay', 'rendering overlay "' + this.name +'"...');
-        },
-
-        preShow: function(callback, options, scope) {
-            var result = this._preShow(arguments);
-            if (result !== false) {
-                callback.call(scope || window);
-            }
-        },
-
-        _preShow: function(callback, options) {
-
-        },
-
-
-        postShow: function() {
-            this._postShow();
-        },
-
-        _postShow: function() {
-
         }
     });
 });

@@ -24,10 +24,18 @@ define(
                     self.fireEvent('setScreen', options);
                 });
 
+                socket.on('toggleOverlay', function(options) {
+                    self.fireEvent('toggleOverlay', options);
+                });
+
             },
 
             setScreen: function(screenName, options) {
                 this.socket.emit('setScreen', [ screenName, options ]);
+            },
+
+            toggleOverlay: function(overlayName, isVisible) {
+                this.socket.emit('toggleOverlay', [ overlayName, isVisible]);
             }
         });
 

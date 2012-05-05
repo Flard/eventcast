@@ -54,14 +54,16 @@ define(['core'], function() {
             this.overlays[overlay.name] = overlay;
         },
 
-        render: function(canvas) {
+        render: function(canvas, projectOptions) {
 
             Object.each(this.screens, function(screen, screenName) {
                 screen.render(canvas);
             });
 
+
             Object.each(this.overlays, function(overlay) {
-                overlay.render(canvas);
+                var isVisible = (projectOptions.currentOverlays.indexOf(overlay.name) >= 0);
+                overlay.render(canvas, isVisible);
             })
 
         }

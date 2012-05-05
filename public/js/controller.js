@@ -18,6 +18,10 @@ define([
                 self._onScreenChange(screenName, options);
             });
 
+            this._connector.addEvent('toggleOverlay', function(overlayName, isVisible) {
+                self._onToggleOverlay(overlayName, isVisible);
+            });
+
         },
 
         _loadProjects: function() {
@@ -39,8 +43,8 @@ define([
                     'data-screen': screenName,
                     events: {
                         click: function() {
-                            this.removeClass(' btn-success');
-                            this.addClass(' btn-warning');
+                            this.removeClass('btn-success');
+                            this.addClass('btn-warning');
                             self.setScreen(screenName);
                         }
                     }
@@ -54,11 +58,13 @@ define([
             Object.each(assetManager.overlays, function(config, overlayName) {
                 var btn = new Element('button', {
                     text: overlayName,
-                    'class': 'btn ',
+                    'class': 'btn'+ ((self.options.currentOverlays.indexOf(overlayName) != -1) ? ' active': ''),
+                    'data-overlay': overlayName,
                     events: {
                         click: function() {
-                            console.log(this.hasClass('active'));
-                            this.toggleClass('active');
+                            var isActive = this.hasClass('active');
+                            this.addClass('btn-warning');
+                            self.toggleOverlay(overlayName, !isActive);
                         }
                     }
                 });
@@ -73,12 +79,28 @@ define([
             this._connector.setScreen(screenName, options);
         },
 
+        toggleOverlay: function(overlayName, isVisible) {
+            this._connector.toggleOverlay(overlayName, isVisible);
+        },
+
         _onScreenChange: function(screenName, options) {
             var screenList = $('screenList');
             Array.each(screenList.getElements('button'), function(button) {
                 var buttonScreen = button.getProperty('data-screen');
                 button.removeClass('btn-warning');
                 button.toggleClass('btn-success', (buttonScreen == screenName));
+            });
+        },
+
+        _onToggleOverlay: function(overlayName, isVisible) {
+            var overlayList = $('overlayList');
+            Object.each(overlayList.getElements('button'), function(button) {
+                var buttonOverlay = button.getProperty('data-overlay');
+                button.removeClass('btn-warning');
+
+                if (buttonOverlay == overlayName) {
+                    button.toggleClass('active', isVisible);
+                }
             });
         }
     });

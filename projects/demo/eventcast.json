@@ -13,12 +13,13 @@
             "query": "#3fm"
         }
     },
-    
+
     "stylesheets": [
         "/projects/demo/demo.css"
     ],
 
     "defaultScreen": "empty",
-    "defaultOptions": null,
+    "defaultScreenOptions": null,
+    "defaultOverlays": ["logo"],
     "transition": "slide"
 }

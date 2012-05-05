@@ -57,10 +57,12 @@ fs.readdir(__dirname+'/projects', function(err, files) {
 //});
 
 var currentScreens = {};
+var currentOverlays = {};
 io.sockets.on('connection', function(socket) {      // On new socket connection
+    var activeProject;
 
     socket.on('setProject', function(project, fn) { // listen for the "setProject" event
-
+        activeProject = project;
         var fs = require('fs');
         var path = __dirname + '/projects/'+project+'/eventcast.json';
 
@@ -69,8 +71,12 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
                 fn(false);
             } else {
                 data = JSON.parse(data);
-                
-                data.currentScreen = currentScreens[project] || data.defaultScreen;
+
+                if (!currentScreens[project]) currentScreens[project] = data.defaultScreen;
+                if (!currentOverlays[project]) currentOverlays[project] = data.defaultOverlays;
+
+                data.currentScreen = currentScreens[project];
+                data.currentOverlays = currentOverlays[project];
                 
                 fn(data);
             }
@@ -79,9 +85,23 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
     });
 
     socket.on('setScreen', function(options) {
-        console.log('requested new screen "'+options[0]+'"');
+        currentScreens[activeProject] = options[0];
         io.sockets.emit('setScreen', options);
     });
+
+    socket.on('toggleOverlay', function(options) {
+        var overlayName = options[0];
+        var isVisible = options[1];
+        var index =currentOverlays[activeProject].indexOf(overlayName);
+        var inArray = (index >= 0);
+        if (isVisible && !inArray) {
+            currentOverlays[activeProject].push(overlayName);
+        } else if (!isVisible && inArray) {
+            currentOverlays[activeProject].splice(index, 1);
+        }
+        io.sockets.emit('toggleOverlay', options);
+
+    })
 
 });
 

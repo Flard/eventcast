@@ -14,6 +14,9 @@ define([
             this._connector.addEvent('setScreen', function(screenName, options) {
                 self.showScreen(screenName, options);
             });
+            this._connector.addEvent('toggleOverlay', function(overlayName, isVisible) {
+                self.toggleOverlay(overlayName, isVisible);
+            });
 
             this._loadStylesheets();
             this._loadTransition();
@@ -60,7 +63,7 @@ define([
 
             // Empty the canvas
             this.canvas.empty();
-            assetManager.render(canvas);
+            assetManager.render(canvas, this.options);
         },
 
         /**
@@ -89,6 +92,18 @@ define([
                 this._transition.go(screen.el, previousScreen ? previousScreen.el : false);
 
             }, options, this);
+        },
+
+        toggleOverlay: function(overlayName, isVisible) {
+
+            var overlay = assetManager.overlays[overlayName];
+
+            if (isVisible) {
+                overlay.show();
+            } else {
+                overlay.hide();
+            }
+
         }
     });
     
