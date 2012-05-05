@@ -1,7 +1,7 @@
 define([
     'core',
-    'plugin/pluginmanager'
-    ], function(core, pluginManager) {
+    'plugin/assetManager'
+    ], function(core, assetManager) {
     EventCast.Client = new Class({
         Implements: Options,
 
@@ -65,7 +65,7 @@ define([
                 // Plugins are loaded, now initialize them with configuration data
 
                 Object.each(self.options.plugins, function(config, name) {
-                    pluginManager.init(name, config);
+                    assetManager.initPlugin(name, config);
                 })
 
                 self._onPluginsLoaded();

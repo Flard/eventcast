@@ -1,12 +1,12 @@
 define([
-    'plugin/pluginmanager',
-    'plugin/screenmanager',
+    'plugin/assetmanager',
     'plugin/general/empty',
     'plugin/general/digitalclock',
+    'plugin/general/logo',
     'base/plugin',
     'core'
     ],
-    function(pluginManager, screenManager, empty, digitalClock) {
+    function(assetManager, emptyScreen, digitalClockScreen, logoOverlay) {
 
         EventCast.GeneralScreenPlugin = new Class({
             Extends: EventCast.BasePlugin,
@@ -14,10 +14,12 @@ define([
             initialize: function() {
                 this.parent('general');
 
-                screenManager.register(empty);
-                screenManager.register(digitalClock);
+                assetManager.registerScreen(emptyScreen);
+                assetManager.registerScreen(digitalClockScreen);
+
+                assetManager.registerOverlay(logoOverlay);
             }
         });
 
-        pluginManager.register(new EventCast.GeneralScreenPlugin());
+        assetManager.registerPlugin(new EventCast.GeneralScreenPlugin());
     });

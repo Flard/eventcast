@@ -32,3 +32,13 @@ body {
 .twitterwall {
     background-color: yellow;
 }
+
+.logo {
+    background-color: white;
+    width: 80px;
+    height: 80px;
+    z-index: 9999;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

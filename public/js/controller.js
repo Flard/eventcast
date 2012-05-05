@@ -1,7 +1,7 @@
 define([
     'client',
-    'plugin/screenmanager'
-], function(client, screenManager) {
+    'plugin/assetmanager'
+], function(client, assetManager) {
 
     EventCast.Controller = new Class({
         Extends: EventCast.Client,
@@ -25,7 +25,7 @@ define([
 
             var list = $('screenList');
             // screens:
-            Object.each(screenManager.screens, function(config, screenName) {
+            Object.each(assetManager.screens, function(config, screenName) {
                 var btn = new Element('button', {
                     text: screenName,
                     events: {

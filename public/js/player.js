@@ -1,7 +1,7 @@
 define([
     'client',
-    'plugin/screenmanager'
-    ], function(client, screenManager) {
+    'plugin/assetmanager'
+    ], function(client, assetManager) {
 
     EventCast.Player = new Class({
         Extends: EventCast.Client,
@@ -60,7 +60,7 @@ define([
 
             // Empty the canvas
             this.canvas.empty();
-            screenManager.render(canvas);
+            assetManager.render(canvas);
         },
 
         /**
@@ -72,7 +72,7 @@ define([
             if (this._currentScreen !== undefined && this._currentScreen.name == screenName) return;
 
             // Get the screen object
-            var screen = EventCast.screenManager.getByName(screenName);
+            var screen = assetManager.screens[screenName];
             if (!screen) { EventCast.warn('Player', 'Unknown screen "'+screenName+'"'); return }
 
             // Keep reference to previous screen

@@ -1,4 +1,4 @@
-define(['plugin/screenmanager', 'base/screen'], function(screenManager) {
+define(['plugin/assetmanager', 'base/screen'], function() {
     EventCast.Screens.TwitterWallScreen = new Class({
         Extends: EventCast.BaseScreen,
 
