@@ -1,20 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title>EventCast Admin</title>
         <script data-main="js/controller" src="js/libs/require.js"></script>
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
     </head>
     <body>
-        <section id="projects">
-            <header>
-                <h1>Project</h1>
+        <div class="container">
+            <section id="projects">
+                <header>
+                    <h1>Project</h1>
+                </header>
                 <p class="name"></p>
-            </header>
-        </section>
-        <section id="screens">
-            <header>
-                <h1>Screens</h1>
+            </section>
+            <section id="screens">
+                <header>
+                    <h1>Screens</h1>
+                </header>
                 <ul id=screenList></ul>
-            </header>
-        </section>
+            </section>
+            <section>
+                <header>
+                    <h1>Overlays</h1>
+                </header>
+                <ul id=overlayList></ul>
+            </section>
+        </div>
     </body>
 </html>
