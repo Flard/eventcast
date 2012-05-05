@@ -94,7 +94,7 @@ define([
 
         _onToggleOverlay: function(overlayName, isVisible) {
             var overlayList = $('overlayList');
-            Object.each(overlayList.getElements('button'), function(button) {
+            overlayList.getElements('button').each(function(button) {
                 var buttonOverlay = button.getProperty('data-overlay');
                 button.removeClass('btn-warning');
 

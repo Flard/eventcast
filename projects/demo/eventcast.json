@@ -9,6 +9,9 @@
 
     "plugins": {
         "general": true,
+        "messagebox": {
+
+        },
         "twitter": {
             "query": "#3fm"
         }

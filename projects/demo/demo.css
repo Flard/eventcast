@@ -43,6 +43,15 @@ body {
     right: 10px;
 }
 
+.messagebox {
+    background-color: white;
+    width: 600px;
+    height: 100px;
+    position: absolute;
+    left: 100px;
+    bottom: 10px;
+}
+
 .hidden {
     display: none;
 }
