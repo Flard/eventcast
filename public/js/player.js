@@ -98,10 +98,11 @@ define([
 
             var overlay = assetManager.overlays[overlayName];
 
+            var animate = true;
             if (isVisible) {
-                overlay.show();
+                overlay.show(animate);
             } else {
-                overlay.hide();
+                overlay.hide(animate);
             }
 
         }

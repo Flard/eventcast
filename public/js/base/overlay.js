@@ -10,16 +10,16 @@ define(['core'], function() {
             if (this.el === undefined) {
                 this.el = this._render(canvas);
                 if (!isVisible) {
-                    this.hide();
+                    this.hide(false);
                 }
             }
         },
 
-        show: function() {
+        show: function(animate) {
             this.el.removeClass('hidden');
         },
 
-        hide: function() {
+        hide: function(animate) {
             this.el.addClass('hidden');
         },
 
