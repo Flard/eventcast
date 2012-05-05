@@ -1,7 +1,7 @@
 define([
     'plugin/pluginmanager',
-    'screen/empty',
-    'screen/digitalclock',
+    'plugin/general/empty',
+    'plugin/general/digitalclock',
     'base/screenplugin',
     'core'
     ],
