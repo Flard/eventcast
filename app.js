@@ -75,6 +75,12 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
                 fn(data);
             }
         });
+
+    });
+
+    socket.on('setScreen', function(options) {
+        console.log('requested new screen "'+options[0]+'"');
+        io.sockets.emit('setScreen', options);
     });
 
 });

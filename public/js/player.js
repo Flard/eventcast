@@ -10,6 +10,11 @@ define([
 
         _onPluginsLoaded: function() {
 
+            var self = this;
+            this._connector.addEvent('setScreen', function(screenName, options) {
+                self.showScreen(screenName, options);
+            });
+
             this._loadStylesheets();
             this._loadTransition();
 

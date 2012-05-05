@@ -7,6 +7,7 @@ define(
             _socket: undefined,
 
             loadProjectData: function(projectName, options, callback) {
+                var self = this;
 
                 // Open a new connection (socket)
                 var socket = this.socket = io.connect(options.serverAddress);
@@ -17,12 +18,16 @@ define(
                     // Upon connect, call the setProject event
                     socket.emit('setProject', projectName, callback);
 
-                })
+                });
+
+                socket.on('setScreen', function(options) {
+                    self.fireEvent('setScreen', options);
+                });
 
             },
 
             setScreen: function(screenName, options) {
-                this.socket.emit('setScreen', screenName);
+                this.socket.emit('setScreen', [ screenName, options ]);
             }
         });
 
