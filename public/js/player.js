@@ -10,7 +10,27 @@ define([
 
         _onPluginsLoaded: function() {
 
+            this._loadStylesheets();
             this._loadTransition();
+
+        },
+
+
+        /**
+         * Load stylesheets from server project data
+         * @param projectData
+         */
+        _loadStylesheets: function() {
+            EventCast.debug('Player', 'loading stylesheets...');
+
+            var headEl = $$('head');
+
+            Array.each(this.options.stylesheets || [], function(href) {
+
+                var linkEl = new Element('link', { 'rel': 'stylesheet', 'href': href, 'type': 'text/stylesheet' });
+                headEl.grab(linkEl);
+
+            });
 
         },
 

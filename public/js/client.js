@@ -37,6 +37,7 @@ define([
 
                 EventCast.debug('Client', 'Loading project data');
                 connector.loadProjectData(self.options.project, self.options, function(data) { self._onProjectDataLoaded(data) });
+                self._connector = connector;
 
             });
         },
@@ -47,28 +48,9 @@ define([
             this.setOptions(projectData);
             console.log('Project data', this.options);
 
-            this._loadStylesheets();
             this._loadPlugins();
 
             this._isLoaded = true;
-        },
-
-        /**
-         * Load stylesheets from server project data
-         * @param projectData
-         */
-        _loadStylesheets: function() {
-            EventCast.debug('Player', 'loading stylesheets...');
-
-            var headEl = $$('head');
-
-            Array.each(this.options.stylesheets || [], function(href) {
-
-                var linkEl = new Element('link', { 'rel': 'stylesheet', 'href': href, 'type': 'text/stylesheet' });
-                headEl.grab(linkEl);
-
-            });
-
         },
 
         _loadPlugins: function() {

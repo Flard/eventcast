@@ -3,7 +3,8 @@ define(['core'], function() {
 
     EventCast.BaseConnector = new Class({
 
-        loadProjectData: function(projectName, options, callback) { console.error('Function "loadProjectData()" not implemented'); }
+        loadProjectData: function(projectName, options, callback) { console.error('Function "loadProjectData()" not implemented'); },
+        setScreen: function(screenName, options) { console.error('Function "setScreen()" not implemented'); }
 
     });
 

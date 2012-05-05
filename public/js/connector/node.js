@@ -18,6 +18,11 @@ define(
                     socket.emit('setProject', projectName, callback);
 
                 })
+
+            },
+
+            setScreen: function(screenName, options) {
+                this.socket.emit('setScreen', screenName);
             }
         });
 
