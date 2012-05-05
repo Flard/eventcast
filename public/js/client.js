@@ -1,8 +1,7 @@
 define([
-    'libs/mootools-core-1.4.5-full-nocompat', 
-    'setup',
+    'core',
     'plugin/pluginmanager'
-    ], function(mootools, setup, pluginManager) {
+    ], function(core, pluginManager) {
     EventCast.Client = new Class({
         Implements: Options,
 

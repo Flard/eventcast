@@ -1,4 +1,4 @@
-define([], function() {
+define(['core'], function() {
     if (!EventCast.Connector) EventCast.Connector = {};
 
     EventCast.BaseConnector = new Class({

@@ -2,7 +2,8 @@ define([
     'plugin/pluginmanager',
     'screen/empty',
     'screen/digitalclock',
-    'base/screenplugin'
+    'base/screenplugin',
+    'core'
     ],
     function(pluginManager, empty, digitalClock) {
 

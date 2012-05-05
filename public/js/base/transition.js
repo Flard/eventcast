@@ -1,12 +1,14 @@
-EventCast.BaseTransition = new Class({
-    Implements: [Options],
+define(['core'], function() {
+    EventCast.BaseTransition = new Class({
+        Implements: [Options],
 
-    initialize: function(name) {
-        this.name = name;
-    },
+        initialize: function(name) {
+            this.name = name;
+        },
 
-    go: function(newScreenEl, previousScreenEl) {
-        if (previousScreenEl) previousScreenEl.setStyle('display', 'none');
-        if (newScreenEl) newScreenEl.setStyle('display', 'block');
-    }
+        go: function(newScreenEl, previousScreenEl) {
+            if (previousScreenEl) previousScreenEl.setStyle('display', 'none');
+            if (newScreenEl) newScreenEl.setStyle('display', 'block');
+        }
+    });
 });

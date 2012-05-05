@@ -1,4 +1,4 @@
-define(['setup', 'util'], function() {
+define(['core'], function() {
     EventCast.ScreenManager = new Class({
         screens: {},
 

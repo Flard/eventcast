@@ -1,4 +1,4 @@
-define(['base/transition'], function() {
+define(['base/transition', 'core'], function() {
 
     EventCast.SlideTransition = new Class({
         Extends: EventCast.BaseTransition,

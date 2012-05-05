@@ -1,4 +1,4 @@
-define(['base/plugin'], function() {
+define(['base/plugin', 'core'], function() {
     EventCast.BaseScreenPlugin = new Class({
         Extends: EventCast.BasePlugin,
         screens: undefined,

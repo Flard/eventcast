@@ -1,4 +1,4 @@
-define([], function() {
+define(['core'], function() {
     EventCast.PluginManager = new Class({
         plugins: {},
 

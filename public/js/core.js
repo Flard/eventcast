@@ -1,6 +1,7 @@
 if (!EventCast) var EventCast = {};
 
-require([
+define([
+    'libs/mootools-core-1.4.5-full-nocompat',
     "util"
     
 //    "base/BasePlugin",
@@ -12,4 +13,6 @@ require([
 //    "plugins/ScreenManager",
 //
 //    "transitions/slide"
-    ]);
+    ], function() {
+
+});
