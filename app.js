@@ -60,7 +60,7 @@ var currentScreens = {};
 io.sockets.on('connection', function(socket) {      // On new socket connection
 
     socket.on('setProject', function(project, fn) { // listen for the "setProject" event
-    
+
         var fs = require('fs');
         var path = __dirname + '/projects/'+project+'/eventcast.json';
 

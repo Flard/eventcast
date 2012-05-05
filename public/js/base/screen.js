@@ -9,7 +9,6 @@ EventCast.BaseScreen = new Class({
         if (this.el === undefined) {
             this. el = this._render(canvas);
         }
-        console.log(this.el);
     },
 
     _render: function(canvas) {

@@ -15,5 +15,7 @@
         "/projects/demo/demo.css"
     ],
 
-    "defaultScreen": "empty"
+    "defaultScreen": "empty",
+    "defaultOptions": null,
+    "transition": "slide"
 }
