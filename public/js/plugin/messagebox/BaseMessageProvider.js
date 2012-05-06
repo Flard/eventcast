@@ -1,5 +1,5 @@
-define([], function() {
-    EventCast.MessageProvider = new Class({
+define(['core'], function() {
+    EventCast.BaseMessageProvider = new Class({
         Implements: [Events],
 
         addMessage: function(message) {

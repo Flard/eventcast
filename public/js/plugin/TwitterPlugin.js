@@ -1,8 +1,8 @@
 define([
-    'plugin/assetmanager',
-    'plugin/twitter/twitterwall',
-    'plugin/twitter/messageprovider',
-    'base/plugin',
+    'plugin/AssetManager',
+    'plugin/twitter/TwitterWallScreen',
+    'plugin/twitter/TwitterMessageProvider',
+    'base/BasePlugin',
     'core'
     ],
     function(assetManager, twitterWall, messageProvider) {

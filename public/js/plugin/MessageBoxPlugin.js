@@ -1,7 +1,7 @@
 define([
-    'plugin/assetmanager',
-    'plugin/messagebox/messagebox',
-    'base/plugin',
+    'plugin/AssetManager',
+    'plugin/messagebox/MessageBoxOverlay',
+    'base/BasePlugin',
     'core'
     ],
     function(assetManager, messageboxOverlay) {

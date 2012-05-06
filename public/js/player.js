@@ -1,6 +1,6 @@
 define([
     'client',
-    'plugin/assetmanager'
+    'plugin/AssetManager'
     ], function(client, assetManager) {
 
     EventCast.Player = new Class({

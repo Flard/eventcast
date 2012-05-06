@@ -1,4 +1,4 @@
-define(['plugin/assetmanager', 'base/screen'], function() {
+define(['plugin/AssetManager', 'base/BaseScreen'], function() {
     EventCast.Screens.EmptyScreen = new Class({
         Extends: EventCast.BaseScreen,
 

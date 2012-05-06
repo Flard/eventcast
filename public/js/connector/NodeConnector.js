@@ -1,5 +1,5 @@
 define(
-    ['base/connector','/socket.io/socket.io.js', 'core'],
+    ['base/BaseConnector','/socket.io/socket.io.js', 'core'],
     function() {
         EventCast.Connector.Node = new Class({
             Extends: EventCast.BaseConnector,

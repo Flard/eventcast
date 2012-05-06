@@ -1,6 +1,6 @@
 define([
     'core',
-    'plugin/assetmanager'
+    'plugin/AssetManager'
     ], function(core, assetManager) {
     EventCast.Client = new Class({
         Implements: Options,
@@ -33,7 +33,8 @@ define([
             EventCast.debug('Client', 'Loading connector "' + this.options.connector +'"...');
 
             var self = this;
-            require(['connector/'+this.options.connector], function(connector) {
+            var className = this.options.connector.capitalize()+'Connector';
+            require(['connector/'+className], function(connector) {
 
                 EventCast.debug('Client', 'Loading project data');
                 connector.loadProjectData(self.options.project, self.options, function(data) { self._onProjectDataLoaded(data) });
@@ -58,7 +59,8 @@ define([
 
             var requires = [];
             Object.each(self.options.plugins, function(config, name) {
-                requires.push('plugin/'+name);
+                var className = name.capitalize()+'Plugin';
+                requires.push('plugin/'+className);
             })
 
             require(requires, function() {

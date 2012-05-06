@@ -1,6 +1,6 @@
-define(['plugin/messagebox/message'], function() {
+define(['base/BaseMessage'], function() {
     EventCast.TwitterMessage = new Class({
-        Extends: EventCast.Message,
+        Extends: EventCast.BaseMessage,
 
         _tweet: undefined,
         initialize: function(tweet) {

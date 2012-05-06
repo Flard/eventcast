@@ -1,4 +1,4 @@
-define(['plugin/assetManager', 'base/screen'], function() {
+define(['plugin/AssetManager', 'base/BaseScreen'], function() {
     EventCast.Screens.DigitalClockScreen = new Class({
         Extends: EventCast.BaseScreen,
 

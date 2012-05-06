@@ -1,5 +1,5 @@
-define([], function() {
-    EventCast.Message = new Class({
+define(['core'], function() {
+    EventCast.BaseMessage = new Class({
         author: undefined,
         message: undefined,
         avatarUrl: undefined,

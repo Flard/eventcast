@@ -1,0 +1,22 @@
+= global =
+- Refactor unique file names
+
+= Screens =
+- Clock
+- Countdown Clock
+- Twitter wall
+- Photo slideshow
+
+= Overlays =
+- Ticker
+
+= Overlay =
+- Add animations
+
+= Messagebox =
+- Load Messages in server, rather than client
+- Overlay should handle only rendering, data/queue management in plugin class
+
+= Server =
+- Persist settings
+- Add viewer/controller passwords

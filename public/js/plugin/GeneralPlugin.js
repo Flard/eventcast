@@ -1,9 +1,9 @@
 define([
-    'plugin/assetmanager',
-    'plugin/general/empty',
-    'plugin/general/digitalclock',
-    'plugin/general/logo',
-    'base/plugin',
+    'plugin/AssetManager',
+    'plugin/general/EmptyScreen',
+    'plugin/general/DigitalClockScreen',
+    'plugin/general/LogoOverlay',
+    'base/BasePlugin',
     'core'
     ],
     function(assetManager, emptyScreen, digitalClockScreen, logoOverlay) {
