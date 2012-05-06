@@ -16,10 +16,30 @@ define(['core'], function() {
         },
 
         show: function(animate) {
+            if (animate) {
+                this._animateShow();
+            } else {
+                this.el.removeClass('hidden');
+            }
+        },
+
+        _animateShow: function() {
+            //TODO: Animate
+            // (Find the best side to slide in from)
             this.el.removeClass('hidden');
         },
 
         hide: function(animate) {
+            if (animate) {
+                this._animateHide();
+            } else {
+                this.el.addClass('hidden');
+            }
+        },
+
+        _animateHide: function() {
+            //TODO: Animate
+            // (Find the best side to slide out to)
             this.el.addClass('hidden');
         },
 
