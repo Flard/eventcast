@@ -9,10 +9,17 @@ define([
         EventCast.MessageBoxPlugin = new Class({
             Extends: EventCast.BasePlugin,
 
+            overlay: undefined,
+
             initialize: function() {
-                this.parent('general');
+                this.parent('messagebox');
 
                 assetManager.registerOverlay(messageboxOverlay);
+                this.overlay = messageboxOverlay;
+            },
+
+            addSource: function(source) {
+                return this.overlay.addSource(source)
             }
         });
 

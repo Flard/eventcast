@@ -10,6 +10,19 @@ define(['plugin/assetmanager', 'base/overlay'], function() {
             var screen = new Element('div', { class: 'messagebox'});
             screen.inject(canvas);
             return screen;
+        },
+
+        _messages: [],
+        _size: 10,
+        addMessage: function(msg) {
+            this._messages.push(msg);
+        },
+
+        _sources: [],
+        addSource: function(source) {
+            var self = this;
+            this._sources.push(source);
+            source.addEvent('newMessage', function(msg) { self.addMessage(msg) });
         }
     });
 

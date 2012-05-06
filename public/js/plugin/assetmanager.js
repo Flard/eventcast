@@ -26,13 +26,12 @@ define(['core'], function() {
 
         },
 
-        initPlugin: function(pluginName, options) {
-
+        initPlugin: function(pluginName, options, projectOptions) {
             if (typeof this.plugins[pluginName] !== 'undefined') {
 
                 EventCast.log('PluginManager', 'Initializing plugin "'+pluginName+'"');
                 var plugin = this.plugins[pluginName];
-                plugin.load(options);
+                plugin.load(options, projectOptions);
                 return plugin;
 
             } else {
@@ -42,6 +41,10 @@ define(['core'], function() {
 
             }
 
+        },
+
+        hasPlugin: function(pluginName) {
+            return (typeof this.plugins[pluginName] !== 'undefined');
         },
 
         registerScreen: function(screen) {
