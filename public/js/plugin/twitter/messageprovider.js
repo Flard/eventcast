@@ -1,4 +1,4 @@
-define(['plugin/messagebox/messageprovider', 'plugin/twitter/message'], function() {
+define(['core', 'plugin/messagebox/messageprovider', 'plugin/twitter/message'], function() {
     EventCast.TwitterMessageProvider = new Class({
         Extends: EventCast.MessageProvider,
         Implements: [ Options ],

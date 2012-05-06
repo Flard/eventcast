@@ -16,10 +16,11 @@ define([
 
                 assetManager.registerOverlay(messageboxOverlay);
                 this.overlay = messageboxOverlay;
+                messageboxOverlay.setSize(10);
             },
 
             addSource: function(source) {
-                return this.overlay.addSource(source)
+                return this.overlay.addSource(source);
             }
         });
 
