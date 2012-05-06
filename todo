@@ -1,21 +1,25 @@
-= global =
-- Refactor unique file names
-
 = Screens =
 - Clock
 - Countdown Clock
 - Twitter wall
 - Photo slideshow
+- Fix animation
 
 = Overlays =
 - Ticker
+- MessageBox
+  - animate
+- animate in/out
 
 = Overlay =
 - Add animations
 
 = Messagebox =
 - Load Messages in server, rather than client
-- Overlay should handle only rendering, data/queue management in plugin class
+
+= Controller =
+- configure
+- Manage messages (add/delete)
 
 = Server =
 - Persist settings

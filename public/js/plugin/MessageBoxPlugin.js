@@ -10,17 +10,40 @@ define([
             Extends: EventCast.BasePlugin,
 
             overlay: undefined,
+            _sources: [],
+
+            _messages: [],
+            _size: 0,
+
+            _writePointer: 0,
+
+            _timer: undefined,
+
 
             initialize: function() {
                 this.parent('messagebox');
 
                 assetManager.registerOverlay(messageboxOverlay);
                 this.overlay = messageboxOverlay;
-                messageboxOverlay.setSize(10);
+                this.overlay.setParent(this);
+                this.setSize(10);
+            },
+
+            addMessage: function(msg) {
+                this._messages[this._writePointer] = msg;
+                EventCast.debug('MessageBox', 'New message by "' + msg.author + '" placed at #' + this._writePointer);
+                this._writePointer = (this._writePointer + 1) % this._messages.length;
+                this._size = Math.min(this._messages.length, this._size+1);
+            },
+
+            setSize: function(size) {
+                this._messages = new Array(size);
             },
 
             addSource: function(source) {
-                return this.overlay.addSource(source);
+                var self = this;
+                this._sources.push(source);
+                source.addEvent('newMessage', function(msg) { self.addMessage(msg) });
             }
         });
 
