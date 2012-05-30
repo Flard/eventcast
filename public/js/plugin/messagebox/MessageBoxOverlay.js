@@ -4,7 +4,7 @@ define(['plugin/AssetManager', 'base/BaseOverlay'], function() {
         _plugin: null,
 
         options: {
-            interval: 3000
+            interval: 7000
         },
         _readPointer: 0,
 
@@ -57,7 +57,9 @@ define(['plugin/AssetManager', 'base/BaseOverlay'], function() {
 
             this._msgElem = msg.createElement();
 
-            this.el.grab(this._msgElem);
+            if (this.el) {
+                this.el.grab(this._msgElem);
+            }
 
         }
     });
