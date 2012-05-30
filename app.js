@@ -10,6 +10,10 @@ app.configure(function(){
 
 // Main pages:
 app.get('/', function(req, res){
+    res.sendfile(__dirname + '/views/index.html');
+});
+
+app.get('/player', function(req, res){
     res.sendfile(__dirname + '/views/player.html');
 });
 
