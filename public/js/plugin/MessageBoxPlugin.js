@@ -19,6 +19,15 @@ define([
 
             _timer: undefined,
 
+            options: {
+                interval: 7000,
+                mode: 'box',
+
+                box: {
+                    speed: 10000
+                },
+                boxMessageCache: 5
+            },
 
             initialize: function() {
                 this.parent('messagebox');
@@ -34,6 +43,7 @@ define([
                 EventCast.debug('MessageBox', 'New message by "' + msg.author + '" placed at #' + this._writePointer);
                 this._writePointer = (this._writePointer + 1) % this._messages.length;
                 this._size = Math.min(this._messages.length, this._size+1);
+                this.fireEvent('newMessage', msg, this._size);
             },
 
             setSize: function(size) {

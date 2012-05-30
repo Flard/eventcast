@@ -1,4 +1,4 @@
-define(['core', 'plugin/messagebox/BaseMessageProvider', 'plugin/twitter/TwitterMessage', 'libs/mootools-more-1.4.0.1'], function() {
+define(['core', 'plugin/messagebox/BaseMessageProvider', 'plugin/twitter/TwitterMessage'], function() {
     EventCast.TwitterMessageProvider = new Class({
         Extends: EventCast.BaseMessageProvider,
         Implements: [ Options ],

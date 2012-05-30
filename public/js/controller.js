@@ -105,13 +105,15 @@ define([
         }
     });
 
-    var config = {
-        project: 'demo'
-    };
+    var DEFAULT_PROJECT = 'demo';
 
     window.addEvent('domready', function(){
+
+        var config = {
+            project: ((window.location.hash.length > 2) ? window.location.hash.substr(1) : DEFAULT_PROJECT)
+        };
+
         var controller = new EventCast.Controller(config);
         controller.start();
     });
-
 });
