@@ -1,6 +1,8 @@
 var express = require('express'),
-    app = express.createServer(),
-    io = require('socket.io').listen(app);
+    http = require('http'),
+    app = express(),
+    server = http.createServer(app),
+    io = require('socket.io').listen(server);
 
 //public resources
 app.configure(function(){
@@ -47,7 +49,7 @@ var fs = require('fs'),
 fs.readdir(__dirname+'/projects', function(err, files) {
     files.forEach(function(file) {
         var p = __dirname+'/projects/'+file+'/eventcast.json';
-        if (path.existsSync(p)) {
+        if (fs.existsSync(p)) {
             projects.push(file);
         }
 
@@ -111,6 +113,6 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
 
 
 // Start listening
-var port = process.env.PORT || 3000;
-app.listen(port);
+var port = process.env.PORT || 3001;
+server.listen(port);
 console.log('Started server on port '+port);
