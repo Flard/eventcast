@@ -109,15 +109,15 @@ define([
     });
 
     var DEFAULT_PROJECT = 'demo';
-
-    window.addEvent('domready', function(){
-
+    //window.addEvent('domready', function(){
+    //    console.log('domreay');
         var config = {
             project: ((window.location.hash.length > 2) ? window.location.hash.substr(1) : DEFAULT_PROJECT)
         };
 
         var player = new EventCast.Player(config);
-          player.start();
-    });
+        player.start();
+
+    //});
 
 });
