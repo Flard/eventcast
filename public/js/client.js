@@ -1,7 +1,8 @@
 define([
     'core',
-    'plugin/AssetManager'
-    ], function(core, assetManager) {
+    'plugin/AssetManager',
+    'plugin/VariableManager',
+    ], function(core, assetManager, variableManager) {
     EventCast.Client = new Class({
         Implements: Options,
 
@@ -49,9 +50,14 @@ define([
             this.setOptions(projectData);
             console.log('Project data', this.options);
 
+            this._loadVariables();
             this._loadPlugins();
 
             this._isLoaded = true;
+        },
+
+        _loadVariables: function() {
+            variableManager.init(this.options.defaultVariables);
         },
 
         _loadPlugins: function() {

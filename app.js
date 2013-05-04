@@ -64,6 +64,7 @@ fs.readdir(__dirname+'/projects', function(err, files) {
 
 var currentScreens = {};
 var currentOverlays = {};
+var currentVariables = {};
 io.sockets.on('connection', function(socket) {      // On new socket connection
     var activeProject;
 
@@ -80,9 +81,11 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
 
                 if (!currentScreens[project]) currentScreens[project] = data.defaultScreen;
                 if (!currentOverlays[project]) currentOverlays[project] = data.defaultOverlays;
+                if (!currentVariables[project]) currentVariables[project] = data.defaultVariables;
 
                 data.currentScreen = currentScreens[project];
                 data.currentOverlays = currentOverlays[project];
+                data.currentVariables = currentVariables[project];
                 
                 fn(data);
             }

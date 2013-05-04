@@ -1,7 +1,8 @@
 define([
     'client',
-    'plugin/AssetManager'
-], function(client, assetManager) {
+    'plugin/AssetManager',
+    'plugin/VariableManager'
+], function(client, assetManager, variableManager) {
 
     EventCast.Controller = new Class({
         Extends: EventCast.Client,
@@ -21,6 +22,7 @@ define([
             this._connector.addEvent('toggleOverlay', function(overlayName, isVisible) {
                 self._onToggleOverlay(overlayName, isVisible);
             });
+
 
         },
 
@@ -71,6 +73,18 @@ define([
                 var listItem = new Element('li');
                 listItem.grab(btn).inject(overlayList);
             });
+
+            var variableTable = $('variableTable');
+            Object.each(variableManager.variables, function(value, name) {
+                var row = new Element('tr');
+                var headerCell = new Element('th', { text: name });
+                var input = new Element('input', { type: 'text', value: value });
+                var valueCell = new Element('td');
+
+                input.inject(valueCell);
+                row.grab(headerCell).grab(valueCell).inject(variableTable);
+            });
+
         },
 
         setScreen: function(screenName, options) {

@@ -1,11 +1,12 @@
 define([
     'plugin/AssetManager',
+    "plugin/VariableManager",
     'plugin/facebook/FacebookCommentScreen',
     //'plugin/twitter/TwitterMessageProvider',
     'base/BasePlugin',
     'core'
     ],
-    function(assetManager, facebookCommentScreen/*, messageProvider*/) {
+    function(assetManager, variableManager, facebookCommentScreen/*, messageProvider*/) {
 
         EventCast.FacebookPlugin = new Class({
             Extends: EventCast.BasePlugin,
@@ -14,6 +15,7 @@ define([
                 this.parent('facebook');
 
                 assetManager.registerScreen(facebookCommentScreen);
+                variableManager.register('facebook.comment.id', 0, { group: 'Facebook', 'label': 'Stream Comment ID', 'type': 'string' });
 
             },
 

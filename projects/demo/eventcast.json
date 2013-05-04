@@ -27,5 +27,6 @@
     "defaultScreen": "empty",
     "defaultScreenOptions": null,
     "defaultOverlays": ["logo"],
+    "defaultVariables": { "facebook.comment.id": 123 },
     "transition": "slide"
 }

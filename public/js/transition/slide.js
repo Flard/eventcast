@@ -12,7 +12,7 @@ define(['base/BaseTransition', 'core'], function() {
                     link: 'cancel',
                     property: 'left'
                     });
-                fxOut.start(0, -640);
+                fxOut.start(0, -800);
             }
 
             newScreenEl.setStyle('left', '640px');
