@@ -6,16 +6,18 @@ define(['base/BaseTransition', 'core'], function() {
         go: function(newScreenEl, previousScreenEl) {
             if (previousScreenEl) {
 
+                var screenWidth = 1024;
+
                 var fxOut = new Fx.Tween(previousScreenEl, {
                     duration: 'long',
                     transition: 'bounce:out',
                     link: 'cancel',
                     property: 'left'
                     });
-                fxOut.start(0, -800);
+                fxOut.start(0, -screenWidth);
             }
 
-            newScreenEl.setStyle('left', '640px');
+            newScreenEl.setStyle('left', screenWidth+'px');
             newScreenEl.setStyle('display', 'block');
             var fxIn = new Fx.Tween(newScreenEl, {
                     duration: 'long',
@@ -23,7 +25,7 @@ define(['base/BaseTransition', 'core'], function() {
                     link: 'cancel',
                     property: 'left'
                     });
-            fxIn.start(640, 0);
+            fxIn.start(screenWidth, 0);
         }
     });
 
