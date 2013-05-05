@@ -78,11 +78,25 @@ define([
             Object.each(variableManager.variables, function(value, name) {
                 var row = new Element('tr');
                 var headerCell = new Element('th', { text: name });
-                var input = new Element('input', { type: 'text', value: value });
+                var input = new Element('input', {
+                    type: 'text',
+                    value: value,
+                    'data-variable': name,
+                    events: {
+                        change: function(e) {
+                            var newValue = e.target.value;
+                            variableManager.set(name, newValue);
+                        }
+                    }
+                });
                 var valueCell = new Element('td');
 
                 input.inject(valueCell);
                 row.grab(headerCell).grab(valueCell).inject(variableTable);
+
+                variableManager.listen(name, function(value) {
+                    input.value = value;
+                });
             });
 
         },

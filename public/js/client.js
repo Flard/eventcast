@@ -57,7 +57,7 @@ define([
         },
 
         _loadVariables: function() {
-            variableManager.init(this._connector, this.options.defaultVariables);
+            variableManager.init(this._connector, this.options.currentVariables);
         },
 
         _loadPlugins: function() {
