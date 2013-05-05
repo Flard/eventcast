@@ -1,4 +1,4 @@
-define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen'], function(variableManager) {
+define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plugin/facebook/FacebookMessage'], function(variableManager) {
     EventCast.Screens.FacebookCommentScreen = new Class({
         Extends: EventCast.BaseScreen,
         Implements: [ Options ],
@@ -17,7 +17,7 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen'], fun
                 text: variableManager.get('facebook.comment.id')
             });
 
-            var url = 'https://graph.facebook.com/40796308305_10152387138698306/comments';
+            var url = 'https://graph.facebook.com/40796308305_10152387138698306/comments?access_token=BAACEdEose0cBACDNcyrOTeRtgl5VHInn1RM2ZBvQLZAwlM5NsUhDZCqg6BbCH3aWDp96BbI6SQ9QKJckau1xy3m6teAYZB0RvZAZCmp0ckI5QZCg6uPZBq412rIXRCiwMq6rU2xmGLmafo92XDomJZABZCEWW6RmsCkvhDqyhZBpa0nCguJ5J30MvjZB59zEw8YEvRdqMOAKfezoP4BJLGrDvN87xjpAMkPcReAZD';
             this._loadComments(url);
 
             screen.inject(canvas);
@@ -47,7 +47,7 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen'], fun
         _parseResults: function(tweets) {
             var self = this;
             tweets.each(function(tweetData) {
-                var message = new EventCast.TwitterMessage(tweetData);
+                var message = new EventCast.FacebookMessage(tweetData);
                 self.addMessage(message);
             })
         },
@@ -57,6 +57,10 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen'], fun
             this._timer = window.setTimeout(function() {
                 self._loadComments(url);
             }, interval || this.options.interval)
+        },
+
+        addMessage: function(message) {
+            console.log(message);
         }
     });
 
