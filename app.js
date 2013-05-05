@@ -110,7 +110,15 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
         }
         io.sockets.emit('toggleOverlay', options);
 
-    })
+    });
+
+    socket.on('setVariable', function(options) {
+       var name = options[0],
+           value = options[1];
+
+        currentVariables[activeProject][name] = value;
+        io.sockets.emit('setVariable', options);
+    });
 
 });
 

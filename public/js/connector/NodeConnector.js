@@ -36,6 +36,10 @@ define(
 
             toggleOverlay: function(overlayName, isVisible) {
                 this.socket.emit('toggleOverlay', [ overlayName, isVisible]);
+            },
+
+            setVariable: function(name, value) {
+                this.socket.emit('setVariable', [ name, value]);
             }
         });
 
