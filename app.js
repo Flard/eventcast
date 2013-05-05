@@ -112,12 +112,12 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
 
     });
 
-    socket.on('setVariable', function(options) {
+    socket.on('setProjectVar', function(options) {
        var name = options[0],
            value = options[1];
 
         currentVariables[activeProject][name] = value;
-        io.sockets.emit('setVariable', options);
+        io.sockets.emit('setProjectVar', options);
     });
 
 });

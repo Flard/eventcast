@@ -12,7 +12,7 @@ define(['core'], function() {
             this.variables = defaults;
 
             var self = this;
-            connector.addEvent('setVariable', function(name, value) {
+            connector.addEvent('setProjectVar', function(name, value) {
                 console.log('new variable from server', name, value);
                 self._trigger(name, value);
             });

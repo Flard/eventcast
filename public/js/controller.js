@@ -23,7 +23,9 @@ define([
                 self._onToggleOverlay(overlayName, isVisible);
             });
 
-
+            this._connector.addEvent('setProjectVar', function(name, options) {
+                console.warn(arguments);
+            });
         },
 
         _loadProjects: function() {

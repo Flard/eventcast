@@ -39,7 +39,7 @@ define(
             },
 
             setVariable: function(name, value) {
-                this.socket.emit('setVariable', [ name, value]);
+                this.socket.emit('setProjectVar', [ name, value ]);
             }
         });
 

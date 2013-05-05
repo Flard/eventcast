@@ -14,7 +14,7 @@ define(['base/BaseTransition', 'core'], function() {
                     link: 'cancel',
                     property: 'left'
                     });
-                fxOut.start(0, -screenWidth);
+                fxOut.start(0, -(screenWidth * 1.5)); // add some width to compensate for the bounce
             }
 
             newScreenEl.setStyle('left', screenWidth+'px');
