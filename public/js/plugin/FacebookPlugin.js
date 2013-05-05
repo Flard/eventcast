@@ -16,6 +16,7 @@ define([
 
                 assetManager.registerScreen(facebookCommentScreen);
                 variableManager.register('facebook.comment.id', 0, { group: 'Facebook', 'label': 'Stream Comment ID', 'type': 'string' });
+                variableManager.register('facebook.access_token', 0, { group: 'Facebook', 'label': 'Access token', 'type': 'string' });
 
             },
 

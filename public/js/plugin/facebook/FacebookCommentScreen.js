@@ -7,18 +7,35 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             messagesPerLoad: 10
         },
 
+        _messages: [],
+        _elements: {},
+
         initialize: function() {
+
             this.parent('facebookcommentstream');
+
         },
 
         _render: function(canvas) {
             var screen = new Element('div', {
-                class: 'screen facebookcommentstream',
-                text: variableManager.get('facebook.comment.id')
+                class: 'screen facebookcommentstream'
             });
 
-            var url = 'https://graph.facebook.com/40796308305_10152387138698306/comments?access_token=BAACEdEose0cBACDNcyrOTeRtgl5VHInn1RM2ZBvQLZAwlM5NsUhDZCqg6BbCH3aWDp96BbI6SQ9QKJckau1xy3m6teAYZB0RvZAZCmp0ckI5QZCg6uPZBq412rIXRCiwMq6rU2xmGLmafo92XDomJZABZCEWW6RmsCkvhDqyhZBpa0nCguJ5J30MvjZB59zEw8YEvRdqMOAKfezoP4BJLGrDvN87xjpAMkPcReAZD';
-            this._loadComments(url);
+            var postId = variableManager.get('facebook.comment.id'),
+                accessToken = variableManager.get('ffacebook.access_token');
+
+            var url = 'https://graph.facebook.com/'+postId+'/comments?access_token='+accessToken;
+            //this._loadComments(url);
+
+            this._elements['image'] = new Element('img', { src: 'https://si0.twimg.com/profile_images/2435827100/vr7g33bqlexkkzba9ka6.jpeg', width: 250, height: 250});
+            this._elements['author'] = new Element('div', { text: 'Jan Janssen', class: 'author'});
+            this._elements['message'] = new Element('div', { text: 'Dit is mijn berichtje'});
+            this._elements['box'] = new Element('div', { class: 'facebook-comment'});
+            this._elements['box'].grab(this._elements['image']);
+            this._elements['box'].grab(this._elements['message']);
+            this._elements['box'].grab(this._elements['author']);
+
+            this._elements['box'].inject(screen);
 
             screen.inject(canvas);
             return screen;
@@ -60,7 +77,9 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
         },
 
         addMessage: function(message) {
-            console.log(message);
+
+            this._messages.push(message);
+
         }
     });
 
