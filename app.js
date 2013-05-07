@@ -69,7 +69,11 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
     var activeProject;
 
     socket.on('setProject', function(project, fn) { // listen for the "setProject" event
+
+        if (!!activeProject) socket.leave(activeProject);
         activeProject = project;
+        socket.join(project);
+
         var fs = require('fs');
         var path = __dirname + '/projects/'+project+'/eventcast.json';
 
@@ -95,7 +99,7 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
 
     socket.on('setScreen', function(options) {
         currentScreens[activeProject] = options[0];
-        io.sockets.emit('setScreen', options);
+        io.sockets.in(activeProject).emit('setScreen', options);
     });
 
     socket.on('toggleOverlay', function(options) {
@@ -108,7 +112,7 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
         } else if (!isVisible && inArray) {
             currentOverlays[activeProject].splice(index, 1);
         }
-        io.sockets.emit('toggleOverlay', options);
+        io.sockets.in(activeProject).emit('toggleOverlay', options);
 
     });
 
@@ -117,7 +121,7 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
            value = options[1];
 
         currentVariables[activeProject][name] = value;
-        io.sockets.emit('setProjectVar', options);
+        io.sockets.in(activeProject).emit('setProjectVar', options);
     });
 
 });
