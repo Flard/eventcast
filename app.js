@@ -116,12 +116,11 @@ io.sockets.on('connection', function(socket) {      // On new socket connection
 
     });
 
-    socket.on('setProjectVar', function(options) {
+    socket.on('setVariable', function(options) {
        var name = options[0],
            value = options[1];
-
         currentVariables[activeProject][name] = value;
-        io.sockets.in(activeProject).emit('setProjectVar', options);
+        io.sockets.in(activeProject).emit('setVariable', options);
     });
 
 });

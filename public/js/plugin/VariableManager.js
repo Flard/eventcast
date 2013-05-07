@@ -12,11 +12,9 @@ define(['core'], function() {
             this.variables = defaults;
 
             var self = this;
-            connector.addEvent('setProjectVar', function(name, value) {
-                console.log('new variable from server', name, value);
+            connector.addEvent('setVariable', function(name, value) {
                 self._trigger(name, value);
             });
-            console.log(connector);
 
 //            Object.each(this.variables, function(value, name) {
 //                self._trigger(name, value);
@@ -38,7 +36,7 @@ define(['core'], function() {
         },
 
         set: function(name, value) {
-            console.log('VariableManager::set', name, value);
+            EventCast.log('VariableManager', 'set('+name+', '+value+')');
             this.variables[name] = value;
 
             this._connector.setVariable(name, value)
@@ -52,15 +50,14 @@ define(['core'], function() {
             } else {
                 self._listeners[name].push(callback);
             }
-            console.log('VariableManager.listen', name);
+
         },
 
         _trigger: function(name, value) {
-            console.log('VariableManager._trigger', name, value);
             var listeners = this._listeners[name];
             if (listeners) {
                 Array.each(listeners, function(listener) {
-                    listener.call(value);
+                    listener.call(this, value);
                 });
             }
         }

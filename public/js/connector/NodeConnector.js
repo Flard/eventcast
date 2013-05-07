@@ -27,6 +27,9 @@ define(
                 socket.on('toggleOverlay', function(options) {
                     self.fireEvent('toggleOverlay', options);
                 });
+                socket.on('setVariable', function(options) {
+                    self.fireEvent('setVariable', options);
+                });
 
             },
 
@@ -39,7 +42,7 @@ define(
             },
 
             setVariable: function(name, value) {
-                this.socket.emit('setProjectVar', [ name, value ]);
+                this.socket.emit('setVariable', [ name, value ]);
             }
         });
 
