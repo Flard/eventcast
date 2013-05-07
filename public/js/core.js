@@ -4,7 +4,12 @@ if (!EventCast.Overlays) EventCast.Overlays = {};
 
 requirejs.config({
     shim: {
-        'libs/mootools-more-1.4.0.1': 'libs/mootools-core-1.4.5-full-nocompat'
+        'libs/mootools-core-1.4.5-full-nocompat': {
+            exports: 'Mootools'
+        },
+        'libs/mootools-more-1.4.0.1': {
+            deps: ['libs/mootools-core-1.4.5-full-nocompat' ]
+        }
     }
 });
 
