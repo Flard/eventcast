@@ -4,7 +4,7 @@ define(['base/BaseMessage'], function() {
 
         _message: undefined,
         initialize: function(message) {
-            this.parent(message.from.name, message.message, null);
+            this.parent(message.from.name, message.message, 'https://graph.facebook.com/'+message.from.id+'/picture?type=large');
             this._message = message;
         }
 

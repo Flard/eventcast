@@ -3,11 +3,17 @@ define(['core'], function() {
         author: undefined,
         message: undefined,
         avatarUrl: undefined,
+        _avatarImage: false,
 
         initialize: function(author, message, avatarUrl) {
             this.author = author;
             this.message = message;
             this.avatarUrl = avatarUrl;
+
+            if (!!avatarUrl) {
+                this._avatarImage = new Image();
+                this._avatarImage.src = avatarUrl;
+            }
         },
 
         createElement: function() {

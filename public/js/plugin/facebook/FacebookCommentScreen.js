@@ -9,6 +9,7 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
 
         _messages: [],
         _elements: {},
+        _activeIndex: -1,
 
         initialize: function() {
 
@@ -22,10 +23,10 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             });
 
             var postId = variableManager.get('facebook.comment.id'),
-                accessToken = variableManager.get('ffacebook.access_token');
+                accessToken = variableManager.get('facebook.access_token');
 
             var url = 'https://graph.facebook.com/'+postId+'/comments?access_token='+accessToken;
-            //this._loadComments(url);
+            this._loadComments(url);
 
             this._elements['image'] = new Element('img', { src: 'https://si0.twimg.com/profile_images/2435827100/vr7g33bqlexkkzba9ka6.jpeg', width: 250, height: 250});
             this._elements['author'] = new Element('div', { text: 'Jan Janssen', class: 'author'});
@@ -36,6 +37,13 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             this._elements['box'].grab(this._elements['author']);
 
             this._elements['box'].inject(screen);
+            this._elements['box'].setStyle('display', 'none');
+
+            var self = this;
+            window.setInterval(function() {
+                self._nextMessage()
+                }, 4000
+            );
 
             screen.inject(canvas);
             return screen;
@@ -61,10 +69,10 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             this._request.send();
         },
 
-        _parseResults: function(tweets) {
+        _parseResults: function(comments) {
             var self = this;
-            tweets.each(function(tweetData) {
-                var message = new EventCast.FacebookMessage(tweetData);
+            comments.each(function(commentData) {
+                var message = new EventCast.FacebookMessage(commentData);
                 self.addMessage(message);
             })
         },
@@ -80,6 +88,25 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
 
             this._messages.push(message);
 
+        },
+
+        _nextMessage: function() {
+
+            if (this._messages.length === 0) return;
+
+            var wasVisible = (this._activeIndex >= 0);
+
+            this._activeIndex = (this._activeIndex + 1) % this._messages.length;
+
+            var message = this._messages[this._activeIndex];
+            this._elements['author'].innerText = message.author;
+            this._elements['message'].innerText = message.message;
+            this._elements['image'].src = message.avatarUrl;
+
+            if (!wasVisible) {
+                this._elements['box'].setStyle('display', 'block');
+
+            }
         }
     });
 
