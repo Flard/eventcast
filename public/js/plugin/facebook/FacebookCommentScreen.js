@@ -59,8 +59,8 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
 
             var accessToken = variableManager.get('facebook.access_token');
 
-            var url = 'https://graph.facebook.com/'+postId+'/comments?access_token='+accessToken;
-            this._loadComments(url);
+            this._baseUrl = 'https://graph.facebook.com/'+postId+'/comments?access_token='+accessToken;
+            this._loadComments(this._baseUrl);
 
             var self = this;
             this._interval = window.setInterval(function() {
@@ -82,10 +82,13 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
                             EventCast.warn('Facebook', 'Invalid facebook server data', data);
                         }
                     } else {
-                        console.log(data);
+                        //console.log(data);
                         self._parseResults(data.data);
 
-                        var url = self._baseUrl+data.refresh_url;
+                        if (data.paging && data.paging.cursors) {
+                            url = self._baseUrl+'&after='+data.paging.cursors.after;
+                        }
+                        //console.log(url);
                         self._queueRequest(url);
                     }
                 },
