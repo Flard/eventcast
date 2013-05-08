@@ -2,7 +2,8 @@ define([
     'client',
     'plugin/AssetManager',
     'plugin/VariableManager',
-    'widget/ScreenSelector'
+    'widget/ScreenSelector',
+    'widget/OverlaySelector'
 ], function(client, assetManager, variableManager) {
 
     EventCast.Controller = new Class({
@@ -50,22 +51,15 @@ define([
 
 
             var overlayList = $('overlayList');
-            Object.each(assetManager.overlays, function(config, overlayName) {
-                var btn = new Element('button', {
-                    text: overlayName,
-                    'class': 'btn'+ ((self.options.currentOverlays.indexOf(overlayName) != -1) ? ' active': ''),
-                    'data-overlay': overlayName,
-                    events: {
-                        click: function() {
-                            var isActive = this.hasClass('active');
-                            this.addClass('btn-warning');
-                            self.toggleOverlay(overlayName, !isActive);
-                        }
-                    }
-                });
-                var listItem = new Element('li');
-                listItem.grab(btn).inject(overlayList);
+            this._overlaySelector = new EventCast.Widgets.OverlaySelector('overlayList', {
+                // TODO: Set
+                overlays: {
+                    'messagebox': 'MessageBox',
+                    logo: 'Logo'
+                },
+                currentOverlays: self.options.currentOverlays
             });
+
 
             var variableTable = $('variableTable');
             Object.each(variableManager.variables, function(value, name) {
