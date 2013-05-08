@@ -1,7 +1,8 @@
 define([
     'client',
     'plugin/AssetManager',
-    'plugin/VariableManager'
+    'plugin/VariableManager',
+    'widget/ScreenSelector'
 ], function(client, assetManager, variableManager) {
 
     EventCast.Controller = new Class({
@@ -36,27 +37,17 @@ define([
             var self = this;
 
             // project name
-            $$('#projects .name').set('text', this.options.project);
+            $('projectName').set('text', this.options.description);
 
-            var screenList = $('screenList');
             // screens:
-            Object.each(assetManager.screens, function(config, screenName) {
-                var btn = new Element('button', {
-                    text: screenName,
-                    'class': 'btn' + (self.options.currentScreen == screenName ? ' btn-success' : ''),
-                    'data-screen': screenName,
-                    events: {
-                        click: function() {
-                            this.removeClass('btn-success');
-                            this.addClass('btn-warning');
-                            self.setScreen(screenName);
-                        }
-                    }
-                });
-                var listItem = new Element('li');
-
-                listItem.grab(btn).inject(screenList);
+            this._screenSelector = new EventCast.Widgets.ScreenSelector('screenList', {
+                screens: assetManager.screens,
+                currentScreen: self.options.currentScreen,
+                onSetScreen: function(screenName) {
+                    self.setScreen(screenName);
+                }
             });
+
 
             var overlayList = $('overlayList');
             Object.each(assetManager.overlays, function(config, overlayName) {
@@ -114,12 +105,9 @@ define([
         },
 
         _onScreenChange: function(screenName, options) {
-            var screenList = $('screenList');
-            Array.each(screenList.getElements('button'), function(button) {
-                var buttonScreen = button.getProperty('data-screen');
-                button.removeClass('btn-warning');
-                button.toggleClass('btn-success', (buttonScreen == screenName));
-            });
+
+            this._screenSelector.setScreen(screenName);
+
         },
 
         _onToggleOverlay: function(overlayName, isVisible) {

@@ -1,6 +1,7 @@
 if (!EventCast) var EventCast = {};
 if (!EventCast.Screens) EventCast.Screens = {};
 if (!EventCast.Overlays) EventCast.Overlays = {};
+if (!EventCast.Widgets) EventCast.Widgets = {};
 
 requirejs.config({
     shim: {

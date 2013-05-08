@@ -2,22 +2,22 @@
 <html lang="en">
     <head>
         <title>EventCast Admin</title>
+        <link rel="stylesheet" href="/topcoat/css/normalize.css" />
+        <link rel="stylesheet" href="/topcoat/css/topcoat-desktop.css" />
         <script data-main="js/controller" src="js/libs/require.js"></script>
-        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
     </head>
-    <body>
+    <body class="bg-slategray">
         <div class="container">
             <section id="projects">
                 <header>
-                    <h1>Project</h1>
+                    <h1 id="projectName">Project</h1>
                 </header>
-                <p class="name"></p>
             </section>
             <section id="screens">
                 <header>
                     <h1>Screens</h1>
                 </header>
-                <ul id=screenList></ul>
+                <p><span id=screenList class="button-group large"></span></p>
             </section>
             <section>
                 <header>
