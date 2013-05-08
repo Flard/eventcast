@@ -10,20 +10,14 @@
             <h1>EventCast</h1>
 
             <h2>Select Channel</h2>
-            <ul class="nav nav-tabs nav-stacked">
-                <li>
-                    <a href="/player#demo">Demo</a>
-                </li>
-                <li>
-                    <a href="/player#demo2">Demo 2</a>
-                </li>
-                <li>
-                    <a href="/player#demo3" class="protected">Demo 3</a>
-                </li>
-            </ul>
-            <footer>
-                <a href="#" class="button small">Admin</a>
-            </footer>
+            <table class="table table-bordered">
+{{#projects}}
+                <tr>
+                    <td><a href="/player#{{name}}">{{description}}</a></td>
+                    <td><a href="/admin#{{name}}" class="btn">Admin</a></td>
+                </tr>
+{{/projects}}
+            </table>
 
         </div>
     </body>

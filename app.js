@@ -8,11 +8,17 @@ var express = require('express'),
 app.configure(function(){
     app.use(express.static(__dirname + '/public'));
     app.use(app.router);
+
+    app.set('view engine', 'html')
+    app.engine('html', require('hogan-express'));
 });
+
+var projects = [];
 
 // Main pages:
 app.get('/', function(req, res){
-    res.sendfile(__dirname + '/views/index.html');
+    //res.sendfile(__dirname + '/views/index.html');
+    res.render('index', { projects: projects });
 });
 
 app.get('/player', function(req, res){
@@ -36,7 +42,6 @@ app.get('/projects/:projectName/:fileName.css', function(req, res) {
     });
 });
 
-var projects = [];
 // List channels
 app.get('/listProjects', function(req, res) {
     // return channels
@@ -50,7 +55,19 @@ fs.readdir(__dirname+'/projects', function(err, files) {
     files.forEach(function(file) {
         var p = __dirname+'/projects/'+file+'/eventcast.json';
         if (fs.existsSync(p)) {
-            projects.push(file);
+
+            fs.readFile(p, 'ascii', function(err, data) {
+
+                if (data) {
+                    data = JSON.parse(data);
+                    projects.push({
+                        name: file,
+                        description: data.description,
+                        is_public: data.is_public
+                    });
+                }
+
+            });
         }
 
     });
