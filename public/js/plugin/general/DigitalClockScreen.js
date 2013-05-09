@@ -2,6 +2,8 @@ define(['plugin/AssetManager', 'base/BaseScreen'], function() {
     EventCast.Screens.DigitalClockScreen = new Class({
         Extends: EventCast.BaseScreen,
 
+        label: 'Clock',
+
         initialize: function() {
             this.parent('digitalclock');
         },

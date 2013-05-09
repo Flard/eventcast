@@ -2,6 +2,8 @@ define(['plugin/AssetManager', 'base/BaseOverlay'], function() {
     EventCast.Overlays.LogoOverlay = new Class({
         Extends: EventCast.BaseOverlay,
 
+        label: 'Logo',
+
         initialize: function() {
             this.parent('logo');
         },

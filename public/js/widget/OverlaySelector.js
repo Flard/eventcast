@@ -1,6 +1,5 @@
 define([
-    'libs/mootools-core-1.4.5-full-nocompat',
-    'libs/mootools-more-1.4.0.1',
+    'core',
     'widget/SlideSwitch'
     ],
     function() {
@@ -14,6 +13,7 @@ define([
         },
 
         _element: undefined,
+        _switches: {},
 
         initialize: function(target, options) {
             console.log(options);
@@ -28,7 +28,7 @@ define([
 
              var self = this;
 
-             Object.each(this.options.overlays, function(config, overlayName) {
+             Object.each(this.options.overlays, function(label, overlayName) {
 //                var btn = new Element('button', {
 //                    text: overlayName,
 //                    'class': 'btn'+ ((self.options.currentOverlays.indexOf(overlayName) != -1) ? ' active': ''),
@@ -46,13 +46,25 @@ define([
 
                  var slideSwitch = new EventCast.Widgets.SlideSwitch({
                      injectInto: self._element,
-                     label: overlayName,
+                     label: label,
                      value: (self.options.currentOverlays.indexOf(overlayName) != -1),
-                     id: 'overlay-switch-'+overlayName
+                     id: 'overlay-switch-'+overlayName,
+                     onChange: function(newValue) {
+
+                         self.fireEvent('toggleOverlay', [ overlayName, newValue ]);
+
+                     }
                  });
+                 self._switches[overlayName] = slideSwitch;
 
             });
 
+
+        },
+
+        toggleOverlay: function(overlayName, isVisible) {
+
+            this._switches[overlayName].setValue(isVisible);
 
         }
 

@@ -39,9 +39,7 @@ define([
             var self = this,
                 totalScreens = this.options.screens.length,
                 currentIndex = 0;
-            Object.each(this.options.screens, function(config, screenName) {
-
-                var caption = screenName;
+            Object.each(this.options.screens, function(caption, screenName) {
 
                 var classList = [ this.options.defaultClass ];
                 if (this.options.currentScreen == screenName) classList.push(this.options.activeClass);

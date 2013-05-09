@@ -7,6 +7,8 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             messagesPerLoad: 10
         },
 
+        label: 'Facebook',
+
         _messages: [],
         _elements: {},
         _activeIndex: -1,

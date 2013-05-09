@@ -2,6 +2,8 @@ define(['plugin/AssetManager', 'base/BaseScreen'], function() {
     EventCast.Screens.TwitterWallScreen = new Class({
         Extends: EventCast.BaseScreen,
 
+        label: 'Twitter',
+
         initialize: function() {
             this.parent('twitterwall');
         },

@@ -41,23 +41,33 @@ define([
             $('projectName').set('text', this.options.description);
 
             // screens:
+            var screenInfo = {};
+            Object.each(assetManager.screens, function(instance, name) {
+                screenInfo[name] = instance.label || name;
+            });
             this._screenSelector = new EventCast.Widgets.ScreenSelector('screenList', {
-                screens: assetManager.screens,
+                screens: screenInfo,
                 currentScreen: self.options.currentScreen,
                 onSetScreen: function(screenName) {
                     self.setScreen(screenName);
                 }
             });
 
-
+            // Overlays
             var overlayList = $('overlayList');
+
+            var overlayInfo = {};
+            Object.each(assetManager.overlays, function(instance, name) {
+                overlayInfo[name] = instance.label || name;
+            });
             this._overlaySelector = new EventCast.Widgets.OverlaySelector('overlayList', {
-                // TODO: Set
-                overlays: {
-                    'messagebox': 'MessageBox',
-                    logo: 'Logo'
-                },
-                currentOverlays: self.options.currentOverlays
+                overlays: overlayInfo,
+                currentOverlays: self.options.currentOverlays,
+                onToggleOverlay: function(overlayName, value) {
+
+                    self.toggleOverlay(overlayName, value);
+
+                }
             });
 
 
@@ -105,15 +115,9 @@ define([
         },
 
         _onToggleOverlay: function(overlayName, isVisible) {
-            var overlayList = $('overlayList');
-            overlayList.getElements('button').each(function(button) {
-                var buttonOverlay = button.getProperty('data-overlay');
-                button.removeClass('btn-warning');
 
-                if (buttonOverlay == overlayName) {
-                    button.toggleClass('active', isVisible);
-                }
-            });
+            this._overlaySelector.toggleOverlay(overlayName, isVisible);
+
         }
     });
 

@@ -12,6 +12,8 @@ define(['plugin/AssetManager', 'base/BaseOverlay'], function() {
         _lastMessageIndex: 0,
         _showIndex: -1,
 
+        label: 'Messagebox',
+
         initialize: function() {
             this.parent('messagebox');
         },
