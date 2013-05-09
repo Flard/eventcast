@@ -16,6 +16,7 @@ define([
 
             this._loadProjects();
             this._loadProjectInfo();
+            this._hideLoadMask();
 
             this._connector.addEvent('setScreen', function(screenName, options) {
                 self._onScreenChange(screenName, options);
@@ -96,6 +97,10 @@ define([
                 });
             });
 
+        },
+
+        _hideLoadMask: function() {
+            $('loadMask').setStyle('display', 'none');
         },
 
         setScreen: function(screenName, options) {

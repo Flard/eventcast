@@ -16,7 +16,7 @@ define([
         _switches: {},
 
         initialize: function(target, options) {
-            console.log(options);
+
             this.setOptions(options);
 
             this._element = $(target);

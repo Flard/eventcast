@@ -77,6 +77,8 @@ define(['plugin/VariableManager', 'plugin/AssetManager', 'base/BaseScreen', 'plu
             this._request = new Request.JSONP({
                 url: url,
                 onSuccess: function(data) {
+
+                    console.log(data);
                     if (!data.data) {
                         if (data.error) {
                             EventCast.warn('Facebook', data.error.message, data);
