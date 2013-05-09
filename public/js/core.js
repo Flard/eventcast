@@ -4,19 +4,24 @@ if (!EventCast.Overlays) EventCast.Overlays = {};
 if (!EventCast.Widgets) EventCast.Widgets = {};
 
 requirejs.config({
+    paths: {
+        'mootools': 'libs/mootools-core-1.4.5-full-nocompat',
+        'mootools-more': 'libs/mootools-more-1.4.0.1'
+    },
     shim: {
-        'libs/mootools-core-1.4.5-full-nocompat': {
-            exports: 'Mootools'
+        'mootools': {
+            exports: 'MooTools'
         },
-        'libs/mootools-more-1.4.0.1': {
-            deps: ['libs/mootools-core-1.4.5-full-nocompat' ]
+        'mootools-more': {
+            deps: ['mootools' ],
+            exports: 'MooTools.More'
         }
     }
 });
 
 define([
-    'libs/mootools-core-1.4.5-full-nocompat',
-    'libs/mootools-more-1.4.0.1',
+    'mootools',
+    'mootools-more',
     "util"
     ], function() {
 
