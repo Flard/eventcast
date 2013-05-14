@@ -1,0 +1,7 @@
+.window {
+    width: 500px;
+    margin: 0 auto;
+    background-color: #3B3F41;
+    padding: 10px;
+    border-radius: 5px;
+}

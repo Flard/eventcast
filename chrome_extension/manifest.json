@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+
+    "name": "EventCast",
+    "description": "This extension connects to an EventCast server",
+    "version": "1.0",
+
+    "permissions": [
+        "http://*/*"
+    ],
+    "app": {
+        "icons": {
+            "48": "icon-75x75.png"
+        },
+        "launch": {
+            "local_path": "launcher.html"
+        }
+    }
+}
