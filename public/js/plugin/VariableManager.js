@@ -5,6 +5,7 @@ define(['core'], function() {
         _connector: false,
         _listeners: {},
         _definitions: {},
+        groups: {},
 
         init: function(connector, defaults) {
 
@@ -27,6 +28,11 @@ define(['core'], function() {
                 this.variables[name] = defaultValue;
             }
             this._definitions[name] = definition;
+            if (typeof this.groups[definition.group] === 'undefined') {
+                this.groups[definition.group] = { };
+            }
+            this.groups[definition.group][name] = definition;
+
         },
 
         get: function(name, defaultValue) {
@@ -42,10 +48,6 @@ define(['core'], function() {
             this.variables[name] = value;
 
             this._connector.setVariable(name, value)
-        },
-
-        getDefinition: function(name) {
-            return this._definitions[name];
         },
 
         listen: function(name, callback) {

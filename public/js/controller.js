@@ -73,31 +73,40 @@ define([
 
 
             var variableTable = $('variableTable');
-            Object.each(variableManager.variables, function(value, name) {
-                var
-                    definition = variableManager.getDefinition(name),
-                    row = new Element('tr'),
-                    headerCell = new Element('th', { text: definition.label });
+            Object.each(variableManager.groups, function(definitions, groupName) {
+                var fieldset = new Element('fieldset'),
+                    label = new Element('label', { text: groupName});
 
-                var input = new Element('input', {
-                    type: 'text',
-                    value: value,
-                    'data-variable': name,
-                    events: {
-                        change: function(e) {
-                            var newValue = e.target.value;
-                            variableManager.set(name, newValue);
-                        }
-                    }
+                fieldset.grab(label);
+
+                Object.each(definitions, function(definition, name) {
+                    var paragraph = new Element('p'),
+                        fieldLabel = new Element('label', { text: definition.label+': ' }),
+                        value = variableManager.get(name),
+                        input = new Element('input', {
+                            type: 'text',
+                            value: value,
+                            'data-variable': name,
+                            events: {
+                                change: function(e) {
+                                    var newValue = e.target.value;
+                                    variableManager.set(name, newValue);
+                                }
+                            }
+                        });
+
+                    fieldLabel.grab(input);
+                    paragraph.grab(fieldLabel);
+
+                    paragraph.inject(fieldset);
+
+                    variableManager.listen(name, function(value) {
+                        input.value = value;
+                    });
                 });
-                var valueCell = new Element('td');
 
-                input.inject(valueCell);
-                row.grab(headerCell).grab(valueCell).inject(variableTable);
+                fieldset.inject(variableTable);
 
-                variableManager.listen(name, function(value) {
-                    input.value = value;
-                });
             });
 
         },

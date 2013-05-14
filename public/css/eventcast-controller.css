@@ -25,3 +25,9 @@ body > footer {
 
     padding-top: 100px;
 }
+
+table#variableTable th {
+    text-align: left;
+    padding-right: 10px;
+    font-size: 1.1em;
+}
