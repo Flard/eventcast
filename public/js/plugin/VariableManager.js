@@ -4,6 +4,7 @@ define(['core'], function() {
         variables: {},
         _connector: false,
         _listeners: {},
+        _definitions: {},
 
         init: function(connector, defaults) {
 
@@ -25,6 +26,7 @@ define(['core'], function() {
             if (typeof this.variables[name] === 'undefined') {
                 this.variables[name] = defaultValue;
             }
+            this._definitions[name] = definition;
         },
 
         get: function(name, defaultValue) {
@@ -40,6 +42,10 @@ define(['core'], function() {
             this.variables[name] = value;
 
             this._connector.setVariable(name, value)
+        },
+
+        getDefinition: function(name) {
+            return this._definitions[name];
         },
 
         listen: function(name, callback) {

@@ -74,8 +74,11 @@ define([
 
             var variableTable = $('variableTable');
             Object.each(variableManager.variables, function(value, name) {
-                var row = new Element('tr');
-                var headerCell = new Element('th', { text: name });
+                var
+                    definition = variableManager.getDefinition(name),
+                    row = new Element('tr'),
+                    headerCell = new Element('th', { text: definition.label });
+
                 var input = new Element('input', {
                     type: 'text',
                     value: value,
