@@ -4,144 +4,18 @@ var express = require('express'),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
-//public resources
-app.configure(function(){
-    app.use(express.static(__dirname + '/public'));
-    app.use(app.router);
+app.root = __dirname;
 
-    app.set('view engine', 'html')
-    app.engine('html', require('hogan-express'));
-});
+// Configuration
+require('./config')(app, express);
 
-var projects = [];
+// Project Manager
+var projectManager = require('./lib/projectManager')(app, express);
 
-// Main pages:
-app.get('/', function(req, res){
-    //res.sendfile(__dirname + '/views/index.html');
-    res.render('index', { projects: projects });
-});
+// All base (static) routes
+require('./lib/controller')(app, express, projectManager);
 
-app.get('/player', function(req, res){
-    res.sendfile(__dirname + '/views/player.html');
-});
-
-app.get('/admin', function(req, res){
-    res.sendfile(__dirname + '/views/admin.html');
-});
-
-app.get('/projects/:projectName/:fileName.css', function(req, res) {
-    
-    var path = __dirname+'/projects/'+req.params.projectName+'/'+req.params.fileName+'.css';
-    fs.stat(path, function(err, stat) {
-       if (err) {
-           res.send(err);
-       } else {
-           res.sendfile(path);
-       }
-
-    });
-});
-
-// List channels
-app.get('/listProjects', function(req, res) {
-    // return channels
-    res.send(projects);
-
-});
-
-var fs = require('fs'),
-    path = require('path');
-fs.readdir(__dirname+'/projects', function(err, files) {
-    files.forEach(function(file) {
-        var p = __dirname+'/projects/'+file+'/eventcast.json';
-        if (fs.existsSync(p)) {
-
-            fs.readFile(p, 'ascii', function(err, data) {
-
-                if (data) {
-                    data = JSON.parse(data);
-                    projects.push({
-                        name: file,
-                        description: data.description,
-                        is_public: data.is_public
-                    });
-                }
-
-            });
-        }
-
-    });
-});
-
-//app.get('/projects/:projectName', function(req, res) {
-//    //TODO: Check projectName
-//    //TODO: Only return "relevant" info
-//    res.sendfile();
-//});
-
-var currentScreens = {};
-var currentOverlays = {};
-var currentVariables = {};
-io.sockets.on('connection', function(socket) {      // On new socket connection
-    var activeProject;
-
-    socket.on('setProject', function(project, fn) { // listen for the "setProject" event
-
-        if (!!activeProject) socket.leave(activeProject);
-        activeProject = project;
-        socket.join(project);
-
-        var fs = require('fs');
-        var path = __dirname + '/projects/'+project+'/eventcast.json';
-
-        fs.readFile(path, 'ascii', function(err, data) {
-            if (err) {
-                fn(false);
-            } else {
-                data = JSON.parse(data);
-
-                if (!currentScreens[project]) currentScreens[project] = data.defaultScreen;
-                if (!currentOverlays[project]) currentOverlays[project] = data.defaultOverlays;
-                if (!currentVariables[project]) currentVariables[project] = data.defaultVariables;
-
-                data.currentScreen = currentScreens[project];
-                data.currentOverlays = currentOverlays[project];
-                data.currentVariables = currentVariables[project];
-                
-                fn(data);
-            }
-        });
-
-    });
-
-    socket.on('setScreen', function(options) {
-        currentScreens[activeProject] = options[0];
-        io.sockets.in(activeProject).emit('setScreen', options);
-    });
-
-    socket.on('toggleOverlay', function(options) {
-        var overlayName = options[0];
-        var isVisible = options[1];
-        var index =currentOverlays[activeProject].indexOf(overlayName);
-        var inArray = (index >= 0);
-        if (isVisible && !inArray) {
-            currentOverlays[activeProject].push(overlayName);
-        } else if (!isVisible && inArray) {
-            currentOverlays[activeProject].splice(index, 1);
-        }
-        io.sockets.in(activeProject).emit('toggleOverlay', options);
-
-    });
-
-    socket.on('setVariable', function(options) {
-       var name = options[0],
-           value = options[1];
-        currentVariables[activeProject][name] = value;
-        io.sockets.in(activeProject).emit('setVariable', options);
-    });
-
-});
-
+require('./lib/socket')(app, io, projectManager);
 
 // Start listening
 var port = process.env.PORT || 3001;
