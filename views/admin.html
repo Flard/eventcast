@@ -5,7 +5,6 @@
         <link rel="stylesheet" href="/topcoat/css/normalize.css" />
         <link rel="stylesheet" href="/topcoat/css/topcoat-desktop.css" />
         <link rel="stylesheet" href="/css/eventcast-controller.css" />
-        <script data-main="js/controller" src="js/libs/require.js"></script>
     </head>
     <body class="bg-slategray">
         <div id="loadMask"><div class="spinner large" role="progressbar"></div></div>
@@ -35,5 +34,9 @@
             </section>
         </div>
         <footer><h1>Powered by: Dreksbak.nl</h1></footer>
+        <script type="text/javascript">
+            var initialProject = '{{project}}';
+        </script>
+        <script data-main="/js/controller" src="/js/libs/require.js"></script>
     </body>
 </html>

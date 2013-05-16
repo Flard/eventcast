@@ -138,12 +138,10 @@ define([
         }
     });
 
-    var DEFAULT_PROJECT = 'demo';
-
     //window.addEvent('domready', function(){
 
         var config = {
-            project: ((window.location.hash.length > 2) ? window.location.hash.substr(1) : DEFAULT_PROJECT)
+            project: window.initialProject
         };
 
         var controller = new EventCast.Controller(config);
