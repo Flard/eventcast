@@ -9,6 +9,8 @@ app.root = __dirname;
 // Configuration
 require('./config')(app, express);
 
+require('./lib/authentication')(app, express);
+
 // Project Manager
 var projectManager = require('./lib/projectManager')(app, express);
 
